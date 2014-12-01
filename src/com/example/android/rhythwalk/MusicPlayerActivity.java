@@ -113,8 +113,24 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 				onClick(mButtonPlayPause);
 			}
 		} else if (v == mButtonRewind) {
-			mMediaPlayer.seekTo(0);
+			//mMediaPlayer.seekTo(0);
 			mChronometer.setBase(SystemClock.elapsedRealtime());
+			
+		    if(mIndex == 0){
+		    mIndex = mItems.size();
+		    }
+		    
+			if(mIndex > 0){
+			mIndex = (mIndex - 1) % mItems.size();
+			}
+			
+			Toast.makeText(this, "debug: " + mIndex, Toast.LENGTH_LONG).show();
+			
+			onClick(mButtonStop);
+			if (isPlaying) {
+				onClick(mButtonPlayPause);
+			}
+			
 		} else if (v == mButtonStop) {
 			mMediaPlayer.stop();
 			mMediaPlayer.reset();
