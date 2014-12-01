@@ -2,9 +2,13 @@ package com.example.android.rhythwalk;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 import android.app.Activity;
 import android.content.Intent;
+import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -38,6 +42,11 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 	private List<Item> mItems;
 	private int mIndex;
 
+	WalkCounterMaster ad;
+	Timer mTimer;
+	long bpm;
+	long startCounter = 0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,6 +69,46 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		mButtonConfig.setOnClickListener(this);
 		
 		setEnabledButton(false);
+		
+		// センサーマネージャからサービスを取得
+				SensorManager manager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+				// 加速度センサーアダプタを生成
+				ad = new WalkCounterMaster(manager);
+
+				// タイマーを生成
+				mTimer = new Timer(true);
+				
+				// 周期的に処理
+				mTimer.schedule(new TimerTask() {
+					@Override
+					public void run() {
+						// mHandlerを通じてUI Threadへ処理をキューイング
+						mHandler.post(new Runnable() {
+							public void run() {
+					
+								if (true) {
+
+									// 歩くBPMの計算式
+									bpm = 6 * (ad.getCounter() - startCounter);
+
+									// BPMの表示
+									TextView bpmTxt = (TextView) findViewById(R.id.BPMText);
+									bpmTxt.setText("" + bpm);
+
+								/**	 ここに歩くBPMと一致したBPMの音楽の再生する処理　*/
+
+								}	
+							
+								// 計測初めの歩数の書き換え
+								startCounter = ad.getCounter();
+		
+							}
+						});
+					}
+				}, 0, 10000); // 0msから 10000ms(10s)間隔で繰り返す
+
+		
 	}
 
 	@Override
