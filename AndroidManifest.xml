@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
   
-        <activity android:name="com.example.android.rhythwalk.MusicPlayerRemoteControlActivity" />
+         <activity android:name=".ConfigActivity"></activity>
+        <activity  android:name=".WalkCounterMaster"></activity>
+        <activity  android:name=".DebugActivity"></activity>
 
         <receiver android:name="com.example.android.rhythwalk.MusicPlayerReceiver" >
             <intent-filter>

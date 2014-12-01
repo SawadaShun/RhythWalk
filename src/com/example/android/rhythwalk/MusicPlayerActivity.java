@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 	private ImageButton mButtonSkip;
 	private ImageButton mButtonRewind;
 	private ImageButton mButtonStop;
+	private ImageButton mButtonConfig;
 	private TextView mTextViewArtist;
 	private TextView mTextViewAlbum;
 	private TextView mTextViewTitle;
@@ -45,6 +47,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		mButtonSkip = (ImageButton) findViewById(R.id.skip);
 		mButtonRewind = (ImageButton) findViewById(R.id.rewind);
 		mButtonStop = (ImageButton) findViewById(R.id.stop);
+		mButtonConfig = (ImageButton) findViewById(R.id.config);
 		mTextViewArtist = (TextView) findViewById(R.id.artist);
 		mTextViewAlbum = (TextView) findViewById(R.id.album);
 		mTextViewTitle = (TextView) findViewById(R.id.title);
@@ -54,7 +57,8 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		mButtonSkip.setOnClickListener(this);
 		mButtonRewind.setOnClickListener(this);
 		mButtonStop.setOnClickListener(this);
-
+		mButtonConfig.setOnClickListener(this);
+		
 		setEnabledButton(false);
 	}
 
@@ -137,6 +141,11 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 			mChronometer.stop();
 			mChronometer.setBase(SystemClock.elapsedRealtime());
 			prepare();
+		} else if(v == mButtonConfig){
+		
+			Intent i = new Intent(this, ConfigActivity.class);
+			startActivity(i);
+			Toast.makeText(this, "Config", Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -178,6 +187,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 				mButtonSkip.setEnabled(enabled);
 				mButtonRewind.setEnabled(enabled);
 				mButtonStop.setEnabled(enabled);
+				mButtonConfig.setEnabled(enabled);
 			}
 		});
 	}
