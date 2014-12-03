@@ -10,8 +10,8 @@ package com.example.android.rhythwalk;
 public class PlaceAnalyze {
 	
 	private String placeString = null;
-	int ID = 0;
-	private int numPlaceCase = getPlaceNumber(ID);
+	static int ID = 0;
+	static int numPlaceCase = getPlaceNumber(ID);
 
 	public String getPlaceString() {
 
@@ -40,7 +40,7 @@ public class PlaceAnalyze {
 		numPlaceCase = setPlace;
 	}
 
-	public int getPlaceNumber(int nowplace) {
+	public static int getPlaceNumber(int nowplace) {
 		if (nowplace >= 1 && nowplace <= 5)
 			return 1;
 		else if (nowplace >= 6 && nowplace <= 10)
