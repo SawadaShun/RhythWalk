@@ -113,7 +113,6 @@ public class Item implements Comparable<Object> {
 			cur.close();
 		}
 
-		// 見つかる順番はソートされていないため、アルバム単位でソートする
 		Collections.sort(items);
 		return items;
 	}
@@ -124,12 +123,34 @@ public class Item implements Comparable<Object> {
 			return 1;
 		}*/
 		Item item = (Item) another;
-		return item.spring - this.spring;
+		
+		if(ConfigActivity.seasonSwitch){
+		
+			int season = 0;
+			switch (SeasonAnalyze.numSeasonCase) {
+			case 1:
+				season = item.spring - this.spring;
+				break;
+			case 2:
+				season = item.summer - this.summer;
+				break;
+			case 3:
+				season = item.autumn - this.autumn;
+				break;
+			case 4:
+				season = item.winter - this.winter;
+				break;
 			
+			}
+		return season;
+		
+		}else{
+			return truck - item.truck;	
+		}
 /*		int result = spring.compareTo(item.spring);
 		if (result != 0) {
 			return result;
 		}
-		return truck - item.truck;*/
+		*/
 	}
 }
