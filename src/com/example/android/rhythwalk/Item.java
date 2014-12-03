@@ -31,23 +31,47 @@ public class Item implements Comparable<Object> {
 	final int daytime;
 	final int evening;
 	final int night;
+	final int sunny;
+	final int cloudy;
+	final int rain;
+	final int snow;
+	final int sea;
+	final int mountain;
+	final int forest;
+	final int city;
 
 	public Item(long id, String artist, String title, String album, int truck,
-			long duration, int spring, int summer, int autumn, int winter, int morning, int daytime, int evening, int night) {
+			long duration, int spring, int summer, int autumn, int winter,
+			int morning, int daytime, int evening, int night, int sunny,
+			int cloudy, int rain, int snow, int sea, int mountain, int forest,
+			int city) {
+
 		this.id = id;
 		this.artist = artist;
 		this.title = title;
 		this.album = album;
 		this.truck = truck;
 		this.duration = duration;
+
 		this.spring = spring;
 		this.summer = summer;
 		this.autumn = autumn;
 		this.winter = winter;
+
 		this.morning = morning;
 		this.daytime = daytime;
 		this.evening = evening;
 		this.night = night;
+
+		this.sunny = sunny;
+		this.cloudy = cloudy;
+		this.rain = rain;
+		this.snow = snow;
+
+		this.sea = sea;
+		this.mountain = mountain;
+		this.forest = forest;
+		this.city = city;
 	}
 
 	public Uri getURI() {
@@ -91,32 +115,34 @@ public class Item implements Comparable<Object> {
 				Log.i(TAG, "Title column index: " + String.valueOf(titleColumn));
 				Log.i(TAG, "ID column index: " + String.valueOf(idColumn));
 
-
 				// リストに追加
 				do {
-					SongSituationDB song = new SongSituationDB(cur.getInt(durationColumn));
-					
-					Log.i(TAG, "Duration: " + cur.getLong(durationColumn)
-							+ " ID: " + cur.getString(idColumn) + " Title: "
-							+ cur.getString(titleColumn)
-							+ " Spring: " + song.getSpring()
-							);
-					items.add(new Item(cur.getLong(idColumn), 
-							cur.getString(artistColumn), 
-							cur.getString(titleColumn),
-							cur.getString(albumColumn), 
-							cur.getInt(idTruck),
-							cur.getLong(durationColumn), 
-							song.getSpring(),
-							song.getSummer(),
-							song.getAutumn(),
-							song.getWinter(),
-							song.getMorning(),
-							song.getDaytime(),
-							song.getEvening(),
-							song.getNight()
-							));
-					
+					SongSituationDB song = new SongSituationDB(
+							cur.getInt(durationColumn));
+
+					Log.i(TAG,
+							"Duration: " + cur.getLong(durationColumn)
+									+ " ID: " + cur.getString(idColumn)
+									+ " Title: " + cur.getString(titleColumn)
+									+ " Spring: " + song.getSpring());
+					items.add(new Item(cur.getLong(idColumn), cur
+							.getString(artistColumn), cur
+							.getString(titleColumn),
+							cur.getString(albumColumn), cur.getInt(idTruck),
+							cur.getLong(durationColumn),
+
+							song.getSpring(), song.getSummer(), song
+									.getAutumn(), song.getWinter(),
+
+							song.getMorning(), song.getDaytime(), song
+									.getEvening(), song.getNight(),
+
+							song.getSunny(), song.getCloudy(), song.getRain(),
+							song.getSnow(),
+
+							song.getSea(), song.getMountain(),
+							song.getForest(), song.getCity()));
+
 				} while (cur.moveToNext());
 
 				Log.i(TAG, "Done querying media. MusicRetriever is ready.");
@@ -131,13 +157,13 @@ public class Item implements Comparable<Object> {
 
 	@Override
 	public int compareTo(Object another) {
-		/*if (another == null) {
-			return 1;
-		}*/
+		/*
+		 * if (another == null) { return 1; }
+		 */
 		Item item = (Item) another;
-		
-		if(ConfigActivity.seasonSwitch){
-		
+
+		if (ConfigActivity.seasonSwitch) {
+
 			int season = 0;
 			switch (SeasonAnalyze.numSeasonCase) {
 			case 1:
@@ -152,36 +178,81 @@ public class Item implements Comparable<Object> {
 			case 4:
 				season = item.winter - this.winter;
 				break;
-			
+
 			}
-		return season;
-		
-		}else if(ConfigActivity.timeSwitch){
-				
-				int season = 0;
-				switch (TimeAnalyze.numTimeCase) {
-				case 1:
-					season = item.morning - this.morning;
-					break;
-				case 2:
-					season = item.evening - this.evening;
-					break;
-				case 3:
-					season = item.daytime - this.daytime;
-					break;
-				case 4:
-					season = item.night - this.night;
-					break;
-				
-				}
+			
 			return season;
-		}else{
-			return truck - item.truck;	
+
+		} else if (ConfigActivity.timeSwitch) {
+
+			int time = 0;
+			switch (TimeAnalyze.numTimeCase) {
+			case 1:
+				time = item.morning - this.morning;
+				break;
+			case 2:
+				time = item.evening - this.evening;
+				break;
+			case 3:
+				time = item.daytime - this.daytime;
+				break;
+			case 4:
+				time = item.night - this.night;
+				break;
+
+			}
+			
+			return time;
+			
+		} else if (ConfigActivity.placeSwitch) {
+
+			int place = 0;
+			switch (PlaceAnalyze.numPlaceCase) {
+			case 1:
+				place = item.sea - this.sea;
+				break;
+			case 2:
+				place = item.mountain - this.mountain;
+				break;
+			case 3:
+				place = item.forest - this.forest;
+				break;
+			case 4:
+				place = item.city - this.city;
+				break;
+
+			}
+			
+			return place;
+			
+		} else if (ConfigActivity.weatherSwitch) {
+
+			int weather = 0;
+			
+			switch (WeatherAnalyze.numWeatherCase) {
+			case 1:
+				weather = item.rain - this.rain;
+				break;
+			case 2:
+				weather = item.snow - this.snow;
+				break;
+			case 3:
+				weather = item.sunny - this.sunny;
+				break;
+			case 4:
+				weather = item.cloudy - this.cloudy;
+				break;
+
+			}
+			
+			return weather;
+			
+		} else {
+			return truck - item.truck;
 		}
-/*		int result = spring.compareTo(item.spring);
-		if (result != 0) {
-			return result;
-		}
-		*/
+		/*
+		 * int result = spring.compareTo(item.spring); if (result != 0) { return
+		 * result; }
+		 */
 	}
 }

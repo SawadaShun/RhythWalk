@@ -10,8 +10,8 @@ package com.example.android.rhythwalk;
 public class WeatherAnalyze {
 
 	private String weatherString = null;
-	int ID = 0;
-	private int numWeatherCase = getWeatherNumber(ID);
+	static int ID = 0;
+	static int numWeatherCase = getWeatherNumber(ID);
 
 	public String getWeatherString() {
 
@@ -40,7 +40,7 @@ public class WeatherAnalyze {
 		numWeatherCase = setWeather;
 	}
 
-	public int getWeatherNumber(int nowWeather) {
+	public static int getWeatherNumber(int nowWeather) {
 		if (nowWeather >= 200 && nowWeather <= 531)
 			return 1;// Rain
 		else if (nowWeather >= 600 && nowWeather <= 622)

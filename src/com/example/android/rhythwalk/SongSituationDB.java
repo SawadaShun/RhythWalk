@@ -17,7 +17,14 @@ public class SongSituationDB {
     private int evening;
     private int daytime;
     private int night;
-    
+    private int sunny;
+    private int cloudy;
+    private int rain;
+    private int snow;
+    private int sea;
+    private int mountain;
+    private int forest;
+    private int city;
     
 	SongSituationDB(int durationID) {
 
@@ -28,11 +35,17 @@ public class SongSituationDB {
 			autumn = 0;
 			winter = 0;
 			morning = 0;
-		    evening = 0;
+		    evening = 11;
 		    daytime = 0;
 		    night = 0;
-			
-			
+			sunny = 5;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 
 		case 276645:// 睡眠時間
@@ -43,8 +56,15 @@ public class SongSituationDB {
 			morning = 0;
 		    evening = 0;
 		    daytime = 0;
-		    night = 0;
-			
+		    night = 9;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 
 		case 323265:// 粉雪
@@ -56,7 +76,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 10;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 
 		case 217321:// 紫陽花の詩
@@ -68,7 +95,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 8;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 366879:// さよならメモリーズ
@@ -80,6 +114,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 244186:// ホタルノヒカリ
@@ -90,8 +132,15 @@ public class SongSituationDB {
 			morning = 0;
 		    evening = 0;
 		    daytime = 0;
-		    night = 0;
-			
+		    night = 7;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 3;
+			city = 0;
 			break;
 			
 		case 295869:// 桃ノ花ビラ
@@ -103,6 +152,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 293042:// 夏の大三角形
@@ -113,20 +170,34 @@ public class SongSituationDB {
 			morning = 0;
 		    evening = 0;
 		    daytime = 0;
-		    night = 0;
-			
+		    night = 10;
+		    sunny = 3;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 271966:// 春風
-			spring = 7;
+			spring = 9;
 			summer = 0;
 			autumn = 0;
 			winter = 0;
-			morning = 0;
+			morning = 2;
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 1;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 280866:// 花火
@@ -137,8 +208,15 @@ public class SongSituationDB {
 			morning = 0;
 		    evening = 0;
 		    daytime = 0;
-		    night = 0;
-			
+		    night = 11;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 263679:// 3月9日
@@ -150,7 +228,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 317881:// 夏空
@@ -160,9 +245,16 @@ public class SongSituationDB {
 			winter = 0;
 			morning = 0;
 		    evening = 0;
-		    daytime = 0;
+		    daytime = 4;
 		    night = 0;
-			
+		    sunny = 7;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 296229:// 秋桜
@@ -174,7 +266,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 268460:// 蛍火
@@ -185,8 +284,15 @@ public class SongSituationDB {
 			morning = 0;
 		    evening = 0;
 		    daytime = 0;
-		    night = 0;
-			
+		    night = 10;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 6;
+			city = 0;
 			break;
 			
 		case 360075:// うたかた花火
@@ -197,7 +303,15 @@ public class SongSituationDB {
 			morning = 0;
 		    evening = 0;
 		    daytime = 0;
-		    night = 0;
+		    night = 14;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 281974:// 12月のリング
@@ -209,7 +323,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 5;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 263166:// 君がいた夏
@@ -220,8 +341,15 @@ public class SongSituationDB {
 			morning = 0;
 		    evening = 0;
 		    daytime = 0;
-		    night = 0;
-			
+		    night = 5;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 268464:// HANABI
@@ -232,8 +360,15 @@ public class SongSituationDB {
 			morning = 0;
 		    evening = 0;
 		    daytime = 0;
-		    night = 0;
-			
+		    night = 10;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 411760:// メリークリスマス
@@ -244,8 +379,15 @@ public class SongSituationDB {
 			morning = 0;
 		    evening = 0;
 		    daytime = 0;
-		    night = 0;
-			
+		    night = 5;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 7;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 4;
 			break;
 			
 		case 358232:// SAKURA
@@ -257,7 +399,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 276000:// ミュージック・アワー
@@ -267,9 +416,16 @@ public class SongSituationDB {
 			winter = 0;
 			morning = 0;
 		    evening = 0;
-		    daytime = 0;
+		    daytime = 4;
 		    night = 0;
-			
+		    sunny = 7;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 5;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 261546:// 卒業
@@ -281,7 +437,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 244619://　卒業写真
@@ -293,7 +456,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 222272:// 夏祭り
@@ -302,10 +472,17 @@ public class SongSituationDB {
 			autumn = 0;
 			winter = 0;
 			morning = 0;
-		    evening = 0;
+		    evening = 3;
 		    daytime = 0;
-		    night = 0;
-			
+		    night = 4;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 258043:// 夏空グラフィティ
@@ -315,9 +492,16 @@ public class SongSituationDB {
 			winter = 0;
 			morning = 0;
 		    evening = 0;
-		    daytime = 0;
+		    daytime = 8;
 		    night = 0;
-			
+		    sunny = 10;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 253866:// 夏色惑星
@@ -329,7 +513,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 250565:// 春景色
@@ -341,7 +532,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 260823:// 桜
@@ -353,7 +551,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 231027:// 桜並木道
@@ -365,7 +570,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 369652:// スノースマイル
@@ -377,7 +589,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 8;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 262327:// 花は桜君は美し
@@ -389,7 +608,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 
 		case 383841:// 赤い糸
@@ -401,7 +627,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 2;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 
 		case 267786:// 車輪の唄
@@ -413,7 +646,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 2;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 397902:// 銀河鉄道
@@ -425,7 +665,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 8;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 298718:// 雨の遊園地
@@ -437,7 +684,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 10;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 230687:// 雨傘
@@ -449,7 +703,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 12;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 236064:// シャカビーチ
@@ -461,7 +722,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 4;
 		    night = 0;
-			
+		    sunny = 10;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 9;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 259109:// 星に願いを
@@ -473,7 +741,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 9;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 				
 		case 239700:// Crazy For You
@@ -485,7 +760,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 12;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 253056:// Rainy
@@ -497,7 +779,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 9;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 
 		case 341238:// スターライトパレード
@@ -509,7 +798,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 3;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 316160:// 一番星
@@ -521,7 +817,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 11;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 306704:// 太陽スキャンダラス
@@ -533,7 +836,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 3;
 		    night = 0;
-			
+		    sunny = 11;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 339647:// 君の知らない物語
@@ -545,7 +855,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 17;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 279071:// Over the rain
@@ -557,7 +874,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 5;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 5;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 229065:// Happy days
@@ -569,7 +893,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 9;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 
 		case 286436:// Prefect Day
@@ -581,7 +912,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 8;
 		    night = 0;
-			
+		    sunny = 14;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 
 		case 317764:// カブトムシ
@@ -592,8 +930,15 @@ public class SongSituationDB {
 			morning = 0;
 		    evening = 0;
 		    daytime = 0;
-		    night = 0;
-			
+		    night = 1;
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 4;
+			city = 0;
 			break;
 		
 		case 295340:// チョコレイト・ディスコ
@@ -605,7 +950,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 8;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 332808:// プラネタリウム
@@ -617,7 +969,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 10;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 296833:// 迷子犬と雨のビート
@@ -629,7 +988,14 @@ public class SongSituationDB {
 		    evening = 1;
 		    daytime = 1;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 11;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 313287:// 真昼の月
@@ -641,7 +1007,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 10;
 		    night = 0;
-			
+		    sunny = 2;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 242704:// Rain
@@ -653,7 +1026,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 15;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 295161:// Love and Roll
@@ -665,7 +1045,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 6;
 		    night = 0;
-			
+		    sunny = 4;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 212376:// Rising star
@@ -677,7 +1064,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 5;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 211305:// 24時
@@ -689,7 +1083,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 9;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 256052:// 虹の見える明日へ
@@ -701,7 +1102,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 4;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 257806:// ライジングサン
@@ -713,7 +1121,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 5;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 318380:// 虹
@@ -725,7 +1140,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 7;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 
 		case 290642:// 夜が明けるよ
@@ -737,7 +1159,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 5;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 310613:// プラネタリウム
@@ -749,7 +1178,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 8;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 310648:// 星屑サンセット
@@ -761,7 +1197,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 12;
-			
+		    sunny = 2;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 227213:// 星屑カンテラ
@@ -773,7 +1216,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 9;
-			
+		    sunny = 1;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 247484:// 青空 Very good days!!
@@ -785,7 +1235,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 5;
 		    night = 0;
-			
+		    sunny = 14;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		
 		case 319216:// AM11:00
@@ -797,7 +1254,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 293590://　Good-bye Days
@@ -809,7 +1273,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 6;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 355587://　プラネタリウム
@@ -821,7 +1292,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 11;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 		case 263549://　天体観測
@@ -833,7 +1311,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 14;
-			
+		    sunny = 4;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 			
 			
@@ -846,7 +1331,14 @@ public class SongSituationDB {
 		    evening = 0;
 		    daytime = 0;
 		    night = 0;
-			
+		    sunny = 0;
+			cloudy = 0;
+			rain = 0;
+			snow = 0;
+			sea = 0;
+			mountain = 0;
+			forest = 0;
+			city = 0;
 			break;
 		}
 	}
@@ -913,6 +1405,70 @@ public class SongSituationDB {
 
 	public void setWinter(int winter) {
 		this.winter = winter;
+	}
+	
+	public int getSunny() {
+		return sunny;
+	}
+
+	public int getCloudy() {
+		return cloudy;
+	}
+
+	public int getRain() {
+		return rain;
+	}
+
+	public int getSnow() {
+		return snow;
+	}
+
+	public void setSunny(int sunny) {
+		this.sunny = sunny;
+	}
+
+	public void setCloudy(int cloudy) {
+		this.cloudy = cloudy;
+	}
+
+	public void setRain(int rain) {
+		this.rain = rain;
+	}
+
+	public void setSnow(int snow) {
+		this.snow = snow;
+	}
+	
+	public int getSea() {
+		return sea;
+	}
+
+	public int getMountain() {
+		return mountain;
+	}
+
+	public int getForest() {
+		return forest;
+	}
+
+	public int getCity() {
+		return city;
+	}
+
+	public void setSea(int sea) {
+		this.sea = sea;
+	}
+
+	public void setMountain(int mountain) {
+		this.mountain = mountain;
+	}
+
+	public void setForest(int forest) {
+		this.forest = forest;
+	}
+
+	public void setCity(int city) {
+		this.city = city;
 	}
 	
 	
