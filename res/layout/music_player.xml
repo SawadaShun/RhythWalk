@@ -54,7 +54,7 @@
                 android:layout_height="192dp"
                 android:layout_gravity="center"
                 android:layout_weight="14.50"
-                android:alpha="0.3"
+                android:alpha="0.5"
                 android:src="@drawable/musicalnote_shadow" />
 
             <LinearLayout
