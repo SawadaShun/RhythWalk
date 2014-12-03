@@ -115,7 +115,11 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 	protected void onResume() {
 		super.onResume();
 		Log.d(TAG, "onResume");
+		
+		mIndex = 0; //再開時ソートの頭から表示
 		mItems = Item.getItems(getApplicationContext());
+		
+		
 		if (mItems.size() != 0) {
 			mMediaPlayer = new MediaPlayer();
 			mMediaPlayer.setOnPreparedListener(this);
