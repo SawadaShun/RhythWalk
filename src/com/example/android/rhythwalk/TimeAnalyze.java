@@ -11,11 +11,11 @@ import java.util.Calendar;
  */
 public class TimeAnalyze {
 
-    Calendar calendar = Calendar.getInstance();
+    static Calendar calendar = Calendar.getInstance();
     
 	private String timeString = null;
-	int time = calendar.get(Calendar.HOUR_OF_DAY);
-	private int numTimeCase = getTimeNumber(time); 
+	static int time = calendar.get(Calendar.HOUR_OF_DAY);
+	static int numTimeCase = getTimeNumber(time); 
 			
     
 	public String getTimeString() {
@@ -41,7 +41,7 @@ public class TimeAnalyze {
 		numTimeCase = setTime;
 	}
 
-	public int getTimeNumber(int nowTime) {
+	public static int getTimeNumber(int nowTime) {
 		if (nowTime >= 4 && nowTime <= 10)
 			return 1;// Morning
 		else if (nowTime >= 11 && nowTime <= 15)

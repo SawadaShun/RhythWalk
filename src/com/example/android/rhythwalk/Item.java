@@ -27,9 +27,13 @@ public class Item implements Comparable<Object> {
 	final int summer;
 	final int autumn;
 	final int winter;
+	final int morning;
+	final int daytime;
+	final int evening;
+	final int night;
 
 	public Item(long id, String artist, String title, String album, int truck,
-			long duration, int spring, int summer, int autumn, int winter) {
+			long duration, int spring, int summer, int autumn, int winter, int morning, int daytime, int evening, int night) {
 		this.id = id;
 		this.artist = artist;
 		this.title = title;
@@ -40,6 +44,10 @@ public class Item implements Comparable<Object> {
 		this.summer = summer;
 		this.autumn = autumn;
 		this.winter = winter;
+		this.morning = morning;
+		this.daytime = daytime;
+		this.evening = evening;
+		this.night = night;
 	}
 
 	public Uri getURI() {
@@ -102,7 +110,11 @@ public class Item implements Comparable<Object> {
 							song.getSpring(),
 							song.getSummer(),
 							song.getAutumn(),
-							song.getWinter()
+							song.getWinter(),
+							song.getMorning(),
+							song.getDaytime(),
+							song.getEvening(),
+							song.getNight()
 							));
 					
 				} while (cur.moveToNext());
@@ -113,7 +125,6 @@ public class Item implements Comparable<Object> {
 			cur.close();
 		}
 
-		// 見つかる順番はソートされていないため、アルバム単位でソートする
 		Collections.sort(items);
 		return items;
 	}
@@ -124,12 +135,53 @@ public class Item implements Comparable<Object> {
 			return 1;
 		}*/
 		Item item = (Item) another;
-		return item.spring - this.spring;
+		
+		if(ConfigActivity.seasonSwitch){
+		
+			int season = 0;
+			switch (SeasonAnalyze.numSeasonCase) {
+			case 1:
+				season = item.spring - this.spring;
+				break;
+			case 2:
+				season = item.summer - this.summer;
+				break;
+			case 3:
+				season = item.autumn - this.autumn;
+				break;
+			case 4:
+				season = item.winter - this.winter;
+				break;
 			
+			}
+		return season;
+		
+		}else if(ConfigActivity.timeSwitch){
+				
+				int season = 0;
+				switch (TimeAnalyze.numTimeCase) {
+				case 1:
+					season = item.morning - this.morning;
+					break;
+				case 2:
+					season = item.evening - this.evening;
+					break;
+				case 3:
+					season = item.daytime - this.daytime;
+					break;
+				case 4:
+					season = item.night - this.night;
+					break;
+				
+				}
+			return season;
+		}else{
+			return truck - item.truck;	
+		}
 /*		int result = spring.compareTo(item.spring);
 		if (result != 0) {
 			return result;
 		}
-		return truck - item.truck;*/
+		*/
 	}
 }

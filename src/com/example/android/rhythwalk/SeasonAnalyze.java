@@ -5,11 +5,11 @@ import java.util.Calendar;
 public class SeasonAnalyze {
 
 	
-	Calendar calendar = Calendar.getInstance();
+	static Calendar calendar = Calendar.getInstance();
 	
 	private String seasonString = null;
-	int month = calendar.get(Calendar.MONTH) + 1;// 月の取得(1月=0)
-    private int numSeasonCase = getSeasonNumber(month);
+	static int month = calendar.get(Calendar.MONTH) + 1;// 月の取得(1月=0)
+    static int numSeasonCase = getSeasonNumber(month);
 	
 	public String getSeasonString() {
 
@@ -36,7 +36,7 @@ public class SeasonAnalyze {
 	}
 
 
-	public int getSeasonNumber(int nowMonth) {
+	public static int getSeasonNumber(int nowMonth) {
 		if (nowMonth >= 3 && nowMonth <= 5)
 			return 1;// Spring
 		else if (nowMonth >= 6 && nowMonth <= 8)
