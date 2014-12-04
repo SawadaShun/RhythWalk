@@ -159,6 +159,14 @@ public class WaveVisualizer implements WaveInterface{
 		// TODO 自動生成されたメソッド・スタブ
 		return bpm;
 	}
+	
+	public void start(){
+		visualizer.setEnabled(true);
+	}
+	
+	public void stop(){
+		visualizer.setEnabled(false);
+	}
     
 }
 

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.hardware.SensorManager;
@@ -19,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +29,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		MediaPlayer.OnPreparedListener, MediaPlayer.OnInfoListener, MediaPlayer.OnCompletionListener {
 	private static final String TAG = "MusicPlayerActivity";
 	private MediaPlayer mMediaPlayer;
+	private WaveVisualizer mVisualiser;
 	private ImageButton mButtonPlayPause;
 	private ImageButton mButtonSkip;
 	private ImageButton mButtonRewind;
@@ -37,6 +38,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 	private TextView mTextViewArtist;
 	private TextView mTextViewAlbum;
 	private TextView mTextViewTitle;
+	private WaveView mWaveView;
 	private Chronometer mChronometer;
 	private Handler mHandler = new Handler();
 	private List<Item> mItems;
@@ -60,6 +62,9 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		mTextViewArtist = (TextView) findViewById(R.id.artist);
 		mTextViewAlbum = (TextView) findViewById(R.id.album);
 		mTextViewTitle = (TextView) findViewById(R.id.title);
+		mWaveView = new WaveView(this);
+		LinearLayout mWaveLayout = (LinearLayout) findViewById(R.id.wave);
+		mWaveLayout.addView(mWaveView);
 		mChronometer = (Chronometer) findViewById(R.id.chronometer);
 
 		mButtonPlayPause.setOnClickListener(this);
@@ -95,7 +100,10 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 									// BPMの表示
 									TextView bpmTxt = (TextView) findViewById(R.id.BPMText);
 									bpmTxt.setText("" + bpm);
-
+									
+									// 波形の表示
+									mWaveView.updateWaveform(mVisualiser.getWaveform());
+									
 								/**	 ここに歩くBPMと一致したBPMの音楽の再生する処理　*/
 
 								}	
@@ -108,7 +116,6 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 					}
 				}, 0, 10000); // 0msから 10000ms(10s)間隔で繰り返す
 
-		
 	}
 
 	@Override
@@ -125,6 +132,8 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 			mMediaPlayer.setOnPreparedListener(this);
 			mMediaPlayer.setOnInfoListener(this);
 			mMediaPlayer.setOnCompletionListener(this);
+			mVisualiser = new WaveVisualizer(mMediaPlayer);
+			mVisualiser.start();
 			prepare();
 		}
 	}
@@ -137,6 +146,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 			mMediaPlayer.reset();
 			mMediaPlayer.release();
 			mMediaPlayer = null;
+			mVisualiser.stop();
 			mChronometer.stop();
 		}
 	}
