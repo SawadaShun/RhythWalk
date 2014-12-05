@@ -17,8 +17,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +63,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		mTextViewAlbum = (TextView) findViewById(R.id.album);
 		mTextViewTitle = (TextView) findViewById(R.id.title);
 		mWaveView = new WaveView(this);
-		LinearLayout mWaveLayout = (LinearLayout) findViewById(R.id.wave);
+		FrameLayout mWaveLayout = (FrameLayout) findViewById(R.id.wave);
 		mWaveLayout.addView(mWaveView);
 		mChronometer = (Chronometer) findViewById(R.id.chronometer);
 
@@ -114,7 +114,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 							}
 						});
 					}
-				}, 0, 10000); // 0msから 10000ms(10s)間隔で繰り返す
+				}, 0, 30); // 0msから 10000ms(10s)間隔で繰り返す
 
 	}
 
