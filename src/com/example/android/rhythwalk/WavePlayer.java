@@ -184,7 +184,7 @@ public class WavePlayer implements WaveInterface{
 		waveform1000ms = null;
 		waveform1000ms_index = -1;
 		bpms = new HashMap<Integer, Integer>();
-		
+		fft = null;
 	}
 	
 	private void updateWaveform(byte[] waveform_sample){
@@ -579,7 +579,7 @@ Log.d("実行時間", (time_a - time_b) + " ms in スケール解析");
 	 */
 	public int getBPM(){
 		int max = Integer.MIN_VALUE;
-		int max_index = -1;
+		int max_index = UNKNOWN_BPM;
 		Integer[] keys = (Integer[]) new TreeSet(bpms.keySet()).toArray(new Integer[0]);
 		for (int i = 0; i < keys.length; i++) {
 			Integer count = bpms.get(keys[i]);

@@ -1,5 +1,8 @@
 package com.example.android.rhythwalk;
 
+import java.util.HashMap;
+import java.util.TreeSet;
+
 import android.annotation.TargetApi;
 import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
@@ -26,8 +29,7 @@ public class WaveVisualizer implements WaveInterface{
 	private byte[] waveform;
 	private byte[] waveform1000ms;
 	private int waveform1000ms_index;
-	private byte[] wavelet;
-	private int bpm;
+	private HashMap<Integer, Integer> bpms;
 	private byte[] fft;
 	private boolean isanalyze = false;
 
@@ -100,8 +102,7 @@ public class WaveVisualizer implements WaveInterface{
     	waveform = null;
     	waveform1000ms = null;
     	waveform1000ms_index = -1;
-    	wavelet = null;
-    	bpm = -1;
+    	bpms = new HashMap<Integer, Integer>();
     	fft = null;
     }
 
@@ -176,8 +177,17 @@ public class WaveVisualizer implements WaveInterface{
 	 */
 	@Override
 	public int getBPM() {
-		// TODO 自動生成されたメソッド・スタブ
-		return bpm;
+		int max = Integer.MIN_VALUE;
+		int max_index = UNKNOWN_BPM;
+		Integer[] keys = (Integer[]) new TreeSet(bpms.keySet()).toArray(new Integer[0]);
+		for (int i = 0; i < keys.length; i++) {
+			Integer count = bpms.get(keys[i]);
+			if(max < count){
+				max = count;
+				max_index = keys[i];
+			}
+		}
+		return max_index;
 	}
 	
 	/**
