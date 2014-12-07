@@ -100,11 +100,8 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 									// BPMの表示
 									TextView bpmTxt = (TextView) findViewById(R.id.BPMText);
 									bpmTxt.setText("" + bpm);
-									
-									// 波形の表示
-									mWaveView.updateWaveform(mVisualiser.getWaveform());
-									
-								/**	 ここに歩くBPMと一致したBPMの音楽の再生する処理　*/
+																		
+									/**	 ここに歩くBPMと一致したBPMの音楽の再生する処理　*/
 
 								}	
 							
@@ -114,7 +111,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 							}
 						});
 					}
-				}, 0, 30); // 0msから 10000ms(10s)間隔で繰り返す
+				}, 0, 10000); // 0msから 10000ms(10s)間隔で繰り返す
 
 	}
 
@@ -133,6 +130,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 			mMediaPlayer.setOnInfoListener(this);
 			mMediaPlayer.setOnCompletionListener(this);
 			mVisualiser = new WaveVisualizer(mMediaPlayer);
+			mVisualiser.setWaveView(mWaveView);
 			mVisualiser.start();
 			prepare();
 		}

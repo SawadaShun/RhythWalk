@@ -19,6 +19,7 @@ public class WaveView extends View{
 	
 	public void updateWaveform(byte[] waveform){
 		this.waveform = waveform;
+//		invalidate();
 		postInvalidate();
 	}
 
@@ -28,12 +29,6 @@ public class WaveView extends View{
 
 		drawArray(canvas, waveform, (int)(getHeight() * 0.5));
 
-    	// 連続して描画する
-//		invalidate();
-//        try {
-//            Thread.sleep(30);
-//        } catch (InterruptedException e) {
-//        }
     }
     
     // 波形が描けます
@@ -44,14 +39,13 @@ public class WaveView extends View{
         int height = getHeight();
         if(array != null){
             for (int i = 0; i < array.length - 1; i++) {
-            	int x1 = width * i / (array.length);
-            	int y1 = zero_y + (int)(array[i] * (height / 128.0));
-            	int x2 = width * (i + 1) / (array.length);
-            	int y2 = zero_y - (int)(array[i + 1] * (height / 128.0));
+            	int x1 = width * i / array.length;
+            	int y1 = zero_y + array[i] * height / Byte.MAX_VALUE;
+            	int x2 = width * (i + 1) / array.length;
+            	int y2 = zero_y + array[i + 1] * height / Byte.MAX_VALUE;
     	        canvas.drawLine(x1, y1, x2, y2, paint);				
             }
         }
-        canvas.drawLine(0, zero_y, width, zero_y, paint);    	        	
     }
 
 }

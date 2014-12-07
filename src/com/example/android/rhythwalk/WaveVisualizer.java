@@ -1,16 +1,9 @@
 package com.example.android.rhythwalk;
 
 import android.annotation.TargetApi;
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
 import android.os.Build;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Toast;
 
 /**
  * 
@@ -28,13 +21,14 @@ import android.widget.Toast;
 
 public class WaveVisualizer implements WaveInterface{
 
-	Visualizer visualizer;
-	byte[] waveform;
-	byte[] waveform1000ms;
-	int waveform1000ms_index;
-	byte[] wavelet;
-	int bpm;
-	byte[] fft;
+	private Visualizer visualizer;
+	private WaveView waveview;
+	private byte[] waveform;
+	private byte[] waveform1000ms;
+	private int waveform1000ms_index;
+	private byte[] wavelet;
+	private int bpm;
+	private byte[] fft;
 
 	/**
 	 * 
@@ -56,9 +50,9 @@ public class WaveVisualizer implements WaveInterface{
 					public void run() {
 						// TODO 自動生成されたメソッド・スタブ
 						// 波形の形にしている
-						for (int i = 0; i < waveform.length; i++) {
-							waveform[i] += 128;
-						}
+//						for (int i = 0; i < waveform.length; i++) {
+//							waveform[i] += 128;
+//						}
 						updateWaveform(waveform);
 
 						// ウェーブレット解析結果生成
@@ -98,9 +92,10 @@ public class WaveVisualizer implements WaveInterface{
 				}).start();
 			}
 		},
-		Visualizer.getMaxCaptureRate(),
+		Visualizer.getMaxCaptureRate() / 2,
 		true, true);	// waveform, fft
     	visualizer.setEnabled(true);
+    	waveview = null;
     	
     	waveform = null;
     	waveform1000ms = null;
@@ -110,8 +105,11 @@ public class WaveVisualizer implements WaveInterface{
     	fft = null;
     }
 
-    private void updateWaveform(byte[] waveform){
-    	this.waveform = waveform;
+    private void updateWaveform(byte[] waveform_origin){
+    	waveform = new byte[waveform_origin.length];
+    	for (int i = 0; i < waveform.length; i++) {
+			waveform[i] = (byte)(waveform_origin[i] + 128);
+		}
     	if(waveform1000ms_index >= 0 && waveform1000ms_index < waveform1000ms.length){
         	for (int i = 0; i < waveform.length && waveform1000ms_index + i < waveform1000ms.length; i++) {
     			waveform1000ms[waveform1000ms_index + i] = waveform[i];
@@ -120,6 +118,9 @@ public class WaveVisualizer implements WaveInterface{
     	}else{
     		waveform1000ms = new byte[visualizer.getSamplingRate() / 1000];
     		waveform1000ms_index = 0;
+    	}
+    	if(waveview != null){
+    		waveview.updateWaveform(waveform);
     	}
     }
     
@@ -132,7 +133,26 @@ public class WaveVisualizer implements WaveInterface{
        	// FFT解析
     }
 
+    /**
+     * 
+     * 波形表示に使用するWaveViewを返す
+     * 
+     * @return 
+     */
+    public WaveView getWaveView(){
+    	return waveview;
+    }
     
+    /**
+     * 
+     * 波形表示に使用するWaveViewを設定する
+     * 
+     * @param view
+     */
+    public void setWaveView(WaveView view){
+    	waveview = view;
+    }
+        
     /**
      * 再生中の波形を返す
      */
@@ -160,12 +180,19 @@ public class WaveVisualizer implements WaveInterface{
 		return bpm;
 	}
 	
+	/**
+	 * 解析の開始
+	 */
 	public void start(){
 		visualizer.setEnabled(true);
 	}
 	
+	/**
+	 * 解析の停止。再開はできない
+	 */
 	public void stop(){
 		visualizer.setEnabled(false);
+		visualizer.release();
 	}
     
 }
