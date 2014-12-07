@@ -28,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LyricAnalyzer extends Activity implements TextWatcher
+public class LyricAnalyzer
 {
 	//public String noun;
 	public StringBuilder sb = new StringBuilder(); //歌詞読み込み用
@@ -88,11 +88,10 @@ public class LyricAnalyzer extends Activity implements TextWatcher
 	public ArrayList<String> midnight = new ArrayList<String>();
 	
 	Handler handler = new Handler();
-	Context context = this;
+//	Context context = this;
 	
     /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState)
+    public void LyricAnalyzer()
     {
     	Arrays.fill(season, 0);
     	Arrays.fill(weather, 0);
@@ -155,8 +154,6 @@ public class LyricAnalyzer extends Activity implements TextWatcher
     	//場所
     	//山　海
     	
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
 
         //ファイル書き込み
         new Thread(new Runnable(){
@@ -182,22 +179,22 @@ public class LyricAnalyzer extends Activity implements TextWatcher
             
         //ボタンクリック処理
         //形態素解析ボタン
-		Button analysbtn = (Button) this.findViewById(R.id.analysbtn);
-		analysbtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				analysbotton_OnClick(v);
-			}
-		});
-		
-		//歌詞解析ボタン
-		Button analysisbtn = (Button) this.findViewById(R.id.analysisbtn);
-		analysisbtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				wordanalysisbotton_OnClick(v);
-			}
-		});
+//		Button analysbtn = (Button) this.findViewById(R.id.analysbtn);
+//		analysbtn.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				analysbotton_OnClick(v);
+//			}
+//		});
+//		
+//		//歌詞解析ボタン
+//		Button analysisbtn = (Button) this.findViewById(R.id.analysisbtn);
+//		analysisbtn.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				wordanalysisbotton_OnClick(v);
+//			}
+//		});
 		//ボタンクリック処理ここまで
     }
     
@@ -207,91 +204,91 @@ public class LyricAnalyzer extends Activity implements TextWatcher
     public void onTextChanged(CharSequence s, int start, int before, int count) {}
     
     public void afterTextChanged(Editable s) {
-        String key = s.toString();
-        //String key = "YO! SAY! 夏が胸を刺激する 生足魅惑のマーメイド 出すとこだして たわわになったら 宝物の恋は やれ爽快 誤魔化し聞かない 薄着の曲線は 確信犯の しなやかなSTYLE 耐水性の 気持ちに切り替わる  瞬間のまぶしさは いかがなもの 心まで脱がされる 熱い風の誘惑に 負けちゃって構わないから 真夏は 不祥事も 君次第で 妖精たちが 夏を刺激する 生足魅惑のマーメイド 出すとこだして たわわになったら 宝物の恋が できそうかい 君じゃなくても バテ気味にもなるよ 暑いばっかの 街は憂鬱で スキを見せたら 不意に耳に入る サブいギャグなんかで 涼みたくない むせ返る熱帯夜を 彩る花火のように 打ち上げて散る思いなら  このまま抱き合って 焦がれるまで 妖精たちと 夏をしたくなる 熱い欲望はトルネイド 出すものだして 素直になりたい 君と僕となら it`s all right 都会のビルの上じゃ 感じなくなってる君を 冷えたワインの口づけで 酔わせて とろかせて 差し上げましょう 妖精たちが 夏を刺激する 生足ヘソ出しマーメイド 恋にかまけて お留守になるのも ダイスケ的にも オールオーケー YO! SAY! 夏を誰としたくなる 一人根の夜に you can say good bye 奥の方まで 乾く間ないほど 宝物の恋を しま鮮花";
-
-        
-        if(key.length() > 0) { 
-            for(net.reduls.sanmoku.Morpheme e : net.reduls.sanmoku.Tagger.parse(key)) {
-                TextView txt = new TextView(this);
-                SpannableString spannable = DataFormatter.format("<"+e.surface+">\n"+e.feature);
-                txt.setText(spannable, TextView.BufferType.SPANNABLE);
-            }
-        }
+//        String key = s.toString();
+//        //String key = "YO! SAY! 夏が胸を刺激する 生足魅惑のマーメイド 出すとこだして たわわになったら 宝物の恋は やれ爽快 誤魔化し聞かない 薄着の曲線は 確信犯の しなやかなSTYLE 耐水性の 気持ちに切り替わる  瞬間のまぶしさは いかがなもの 心まで脱がされる 熱い風の誘惑に 負けちゃって構わないから 真夏は 不祥事も 君次第で 妖精たちが 夏を刺激する 生足魅惑のマーメイド 出すとこだして たわわになったら 宝物の恋が できそうかい 君じゃなくても バテ気味にもなるよ 暑いばっかの 街は憂鬱で スキを見せたら 不意に耳に入る サブいギャグなんかで 涼みたくない むせ返る熱帯夜を 彩る花火のように 打ち上げて散る思いなら  このまま抱き合って 焦がれるまで 妖精たちと 夏をしたくなる 熱い欲望はトルネイド 出すものだして 素直になりたい 君と僕となら it`s all right 都会のビルの上じゃ 感じなくなってる君を 冷えたワインの口づけで 酔わせて とろかせて 差し上げましょう 妖精たちが 夏を刺激する 生足ヘソ出しマーメイド 恋にかまけて お留守になるのも ダイスケ的にも オールオーケー YO! SAY! 夏を誰としたくなる 一人根の夜に you can say good bye 奥の方まで 乾く間ないほど 宝物の恋を しま鮮花";
+//
+//        
+//        if(key.length() > 0) { 
+//            for(net.reduls.sanmoku.Morpheme e : net.reduls.sanmoku.Tagger.parse(key)) {
+//                TextView txt = new TextView(this);
+//                SpannableString spannable = DataFormatter.format("<"+e.surface+">\n"+e.feature);
+//                txt.setText(spannable, TextView.BufferType.SPANNABLE);
+//            }
+//        }
     }
     
     //形態素ボタンをクリックしたとき
 	private void analysbotton_OnClick(View v) {
-		AssetManager as = getResources().getAssets();
-
-		InputStream is = null;
-		BufferedReader br = null;
-
-		//StringBuilder sb = new StringBuilder();
-		try {
-			try {
-				//歌詞を読み込む
-				//is = as.open("hotlimit.txt"); //HOT LIMIT 夏の歌
-				//is = as.open("roshin_yuukai.txt"); //炉心融解　春か夏で夜、深夜の歌
-				//is = as.open("sakura_no_kisetsu.txt"); //桜の季節　春の歌
-				//is = as.open("utsukushiki_mono.txt"); //美しきもの　朝夜春夏秋冬全部の歌
-				//is = as.open("himitsu_no_mori_no_butoukai.txt"); //秘密の森の舞踏会　夜の歌
-				//is = as.open("hoshino_ginka_atsumete.txt"); //星の銀貨あつめて　夜の歌
-				is = as.open("kogane_no_seiya.txt"); //金の聖夜霜雪に朽ちて
-				
-				br = new BufferedReader(new InputStreamReader(is));
-
-				String str;
-				int cou = 0;
-				while ((str = br.readLine()) != null) {
-					cou++;
-					sb.append(str + "\n");
-					//一行目がタイトルのため
-					if(cou == 1){
-						title = str; //タイトルとして記憶
-					}
-				}
-			} finally {
-				if (br != null)
-					br.close();
-			}
-		} catch (IOException e) { // 例外処理
-			Toast.makeText(this, "読み込み失敗", Toast.LENGTH_SHORT).show();
-		}
+//		AssetManager as = getResources().getAssets();
+//
+//		InputStream is = null;
+//		BufferedReader br = null;
+//
+//		//StringBuilder sb = new StringBuilder();
+//		try {
+//			try {
+//				//歌詞を読み込む
+//				//is = as.open("hotlimit.txt"); //HOT LIMIT 夏の歌
+//				//is = as.open("roshin_yuukai.txt"); //炉心融解　春か夏で夜、深夜の歌
+//				//is = as.open("sakura_no_kisetsu.txt"); //桜の季節　春の歌
+//				//is = as.open("utsukushiki_mono.txt"); //美しきもの　朝夜春夏秋冬全部の歌
+//				//is = as.open("himitsu_no_mori_no_butoukai.txt"); //秘密の森の舞踏会　夜の歌
+//				//is = as.open("hoshino_ginka_atsumete.txt"); //星の銀貨あつめて　夜の歌
+//				is = as.open("kogane_no_seiya.txt"); //金の聖夜霜雪に朽ちて
+//				
+//				br = new BufferedReader(new InputStreamReader(is));
+//
+//				String str;
+//				int cou = 0;
+//				while ((str = br.readLine()) != null) {
+//					cou++;
+//					sb.append(str + "\n");
+//					//一行目がタイトルのため
+//					if(cou == 1){
+//						title = str; //タイトルとして記憶
+//					}
+//				}
+//			} finally {
+//				if (br != null)
+//					br.close();
+//			}
+//		} catch (IOException e) { // 例外処理
+//			Toast.makeText(this, "読み込み失敗", Toast.LENGTH_SHORT).show();
+//		}
 		//解析用の文字列にファイルの中身（sb）をコピー
 		String key =new String(sb);
 		//↓リザルトエリアに表示しますよーのやつ？
     	//LinearLayout resultArea = (LinearLayout)findViewById(R.id.search_result_area);
         //resultArea.removeAllViews();
         
-        TextView label = (TextView) this.findViewById(R.id.label);
-        
-        if(key.length() > 0) { 
-            for(net.reduls.sanmoku.Morpheme e : net.reduls.sanmoku.Tagger.parse(key)) {
-                TextView txt = new TextView(this);
-                SpannableString spannable = DataFormatter.format("<"+e.surface+">\n"+e.feature);
-                txt.setText(spannable, TextView.BufferType.SPANNABLE);
-                //String word = new String(spannable, TextView.BufferType.SPANNABLE);
-                //resultArea.addView(txt); //結果の表示
-                //e.surface　は　元の単語
-                //e.feature　は　品詞
-                
-                //名詞を抽出
-                if (e.feature.contains("名詞")) {//一致の場合trueが帰ってくる
-                	Log.d("たしかめ","名詞と判断されました");
-                	noun.append(e.surface + "　");
-                	total++; //名詞の総数カウント
-                	Log.d("たしかめ","可変長配列に追加");
-                	noun_word.add(new String(e.surface));                	
-                }
-                //label.setText(new String(noun + "\n名詞は" + total + "個"));
-                //label.setText(total+""); //label.setText(total);にするとエラー吐くから空の文字はいれる
-            }
-            
-        }
-        //test = noun_word.get(100);
-        label.setText("名詞の個数" + total + "個　20番目の名詞を試しに表示→" +noun_word.get(19) + "\n" + noun);
-        
+//        TextView label = (TextView) this.findViewById(R.id.label);
+//        
+//        if(key.length() > 0) { 
+//            for(net.reduls.sanmoku.Morpheme e : net.reduls.sanmoku.Tagger.parse(key)) {
+//                TextView txt = new TextView(this);
+//                SpannableString spannable = DataFormatter.format("<"+e.surface+">\n"+e.feature);
+//                txt.setText(spannable, TextView.BufferType.SPANNABLE);
+//                //String word = new String(spannable, TextView.BufferType.SPANNABLE);
+//                //resultArea.addView(txt); //結果の表示
+//                //e.surface　は　元の単語
+//                //e.feature　は　品詞
+//                
+//                //名詞を抽出
+//                if (e.feature.contains("名詞")) {//一致の場合trueが帰ってくる
+//                	Log.d("たしかめ","名詞と判断されました");
+//                	noun.append(e.surface + "　");
+//                	total++; //名詞の総数カウント
+//                	Log.d("たしかめ","可変長配列に追加");
+//                	noun_word.add(new String(e.surface));                	
+//                }
+//                //label.setText(new String(noun + "\n名詞は" + total + "個"));
+//                //label.setText(total+""); //label.setText(total);にするとエラー吐くから空の文字はいれる
+//            }
+//            
+//        }
+//        //test = noun_word.get(100);
+//        label.setText("名詞の個数" + total + "個　20番目の名詞を試しに表示→" +noun_word.get(19) + "\n" + noun);
+//        
 	}//解析ボタンクリックした処理終わり
 
 	private void wordanalysisbotton_OnClick(View v) {
@@ -371,7 +368,7 @@ public class LyricAnalyzer extends Activity implements TextWatcher
 	    		}
 	    	}
 	      }
-	    TextView label2 = (TextView) this.findViewById(R.id.label2);
+//	    TextView label2 = (TextView) this.findViewById(R.id.label2);
 	    //ためしに表示
 	    /*
 	    label2.setText("春の要素" + season[0] + 
@@ -455,8 +452,8 @@ public class LyricAnalyzer extends Activity implements TextWatcher
 	    //label2.setText(title + "の季節は" + sea + "　天気は" + wea + "　時間は" + tim );
 	    
 	    text = "";
-		text += "次の結果をファイルに書き込みました:\n" + FileWriterUtility.writePrivateFile(context, "test.txt", title + "の季節は" + sea + "　天気は" + wea + "　時間は" + tim ) + "\n";
-		text += "ファイルの内容を表示:\n" + FileWriterUtility.readPrivateFile(context, "test.txt") + "\n\n";
+//		text += "次の結果をファイルに書き込みました:\n" + FileWriterUtility.writePrivateFile(context, "test.txt", title + "の季節は" + sea + "　天気は" + wea + "　時間は" + tim ) + "\n";
+//		text += "ファイルの内容を表示:\n" + FileWriterUtility.readPrivateFile(context, "test.txt") + "\n\n";
 		text += ("春の要素" + season[0] + 
  			   " \n夏の要素" + season[1] + 
  			   " \n秋の要素" + season[2] +
@@ -471,7 +468,7 @@ public class LyricAnalyzer extends Activity implements TextWatcher
  			   " \n夜の要素" + time[3] +
  			   " \n深夜の要素" + time[4]);
 		
-		label2.setText(text);
+//		label2.setText(text);
 	}
 	
 }
