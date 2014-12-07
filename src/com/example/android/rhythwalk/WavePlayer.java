@@ -190,7 +190,7 @@ public class WavePlayer implements WaveInterface{
 	private void updateWaveform(byte[] waveform_sample){
 		waveform = waveform_sample;
 		if(waveform != null){
-			updateFFT();			
+//			updateFFT();
 		}
     	if(waveform1000ms_index >= 0 && waveform1000ms_index < waveform1000ms.length){ 
     		for (int i = 0; i < waveform_sample.length && waveform1000ms_index + i < waveform1000ms.length; i++) { 

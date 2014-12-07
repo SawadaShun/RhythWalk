@@ -29,6 +29,7 @@ public class WaveVisualizer implements WaveInterface{
 	private byte[] wavelet;
 	private int bpm;
 	private byte[] fft;
+	private boolean isanalyze = false;
 
 	/**
 	 * 
@@ -56,7 +57,7 @@ public class WaveVisualizer implements WaveInterface{
 						updateWaveform(waveform);
 
 						// ウェーブレット解析結果生成
-						if(waveform1000ms_index >= waveform1000ms.length){
+						if(isanalyze && waveform1000ms_index >= waveform1000ms.length){
 							// BPM解析
 							updateBPM();
 						}
@@ -87,13 +88,12 @@ public class WaveVisualizer implements WaveInterface{
 			    			fft[i * 2 + 1] = (byte)amplitude;
 			    		}
 			    		updateFFT(fft);
-						
 					}
 				}).start();
 			}
 		},
 		Visualizer.getMaxCaptureRate() / 2,
-		true, true);	// waveform, fft
+		true, isanalyze);	// waveform, fft
     	visualizer.setEnabled(true);
     	waveview = null;
     	
