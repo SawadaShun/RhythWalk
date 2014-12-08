@@ -1,11 +1,13 @@
 package com.example.android.rhythwalk;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -39,13 +41,42 @@ public class Item implements Comparable<Object> {
 	final int mountain;
 	final int forest;
 	final int city;
-	final int bpm;
+	String data;
+	int bpm;
 
+	/**
+	 * 楽曲のインスタンスを生成
+	 * getItemsで使われる
+	 * 
+	 * @param id
+	 * @param artist
+	 * @param title
+	 * @param album
+	 * @param truck
+	 * @param duration
+	 * @param spring
+	 * @param summer
+	 * @param autumn
+	 * @param winter
+	 * @param morning
+	 * @param daytime
+	 * @param evening
+	 * @param night
+	 * @param sunny
+	 * @param cloudy
+	 * @param rain
+	 * @param snow
+	 * @param sea
+	 * @param mountain
+	 * @param forest
+	 * @param city
+	 * @param bpm
+	 */
 	public Item(long id, String artist, String title, String album, int truck,
 			long duration, int spring, int summer, int autumn, int winter,
 			int morning, int daytime, int evening, int night, int sunny,
 			int cloudy, int rain, int snow, int sea, int mountain, int forest,
-			int city, int bpm) {
+			int city, String data, int bpm) {
 
 		this.id = id;
 		this.artist = artist;
@@ -74,12 +105,56 @@ public class Item implements Comparable<Object> {
 		this.forest = forest;
 		this.city = city;
 		
+		this.data = data;
 		this.bpm = bpm;
 	}
-
+	
+	/**
+	 * 楽曲のある場所を返す
+	 * 
+	 * @return 場所を示すURI
+	 */
 	public Uri getURI() {
 		return ContentUris.withAppendedId(
 				MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
+	}
+	
+	/**
+	 * 楽曲の解析をしていなければする<br>
+	 * 波形解析とか歌詞解析とか時間かかるもの
+	 * 
+	 */
+	public void analyse(){
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				if(bpm == WaveInterface.DEFAULT_BPM){
+					try {
+						Log.i(TAG, data + ": ");
+
+						WavePlayer mWavePlayer = new WavePlayer(data);
+						mWavePlayer.start();
+						while (mWavePlayer.getCurrentTime() != mWavePlayer.getDurationTime()) {
+							Thread.sleep(1000);
+						}
+						bpm = mWavePlayer.getBPM();
+						
+						Log.i(TAG, "BPM: " + bpm + " " + title);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						Log.e(TAG, e.toString());
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}					
+				}
+				
+			}
+		}).start();
 	}
 
 	/**
@@ -114,6 +189,7 @@ public class Item implements Comparable<Object> {
 						.getColumnIndex(MediaStore.Audio.Media.DURATION);
 				int idColumn = cur.getColumnIndex(MediaStore.Audio.Media._ID);
 				int idTruck = cur.getColumnIndex(MediaStore.Audio.Media.TRACK);
+				int dataColumn = cur.getColumnIndex(MediaStore.Audio.Media.DATA);
 
 				Log.i(TAG, "Title column index: " + String.valueOf(titleColumn));
 				Log.i(TAG, "ID column index: " + String.valueOf(idColumn));
@@ -146,6 +222,7 @@ public class Item implements Comparable<Object> {
 							song.getSea(), song.getMountain(),
 							song.getForest(), song.getCity(),
 							
+							cur.getString(dataColumn),
 							WaveInterface.DEFAULT_BPM));
 
 				} while (cur.moveToNext());

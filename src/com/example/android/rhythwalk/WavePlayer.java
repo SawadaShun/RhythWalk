@@ -43,13 +43,13 @@ public class WavePlayer implements WaveInterface{
 	private boolean buffer_isplay = false;
 
 	//ここから赤木の追加分変数
-	byte[] fft; //fftデータ格納用バイト型変数
-	boolean Scale = false;//スケールが検出できているか、いないかの判定
-	int max=0; //最大値座標格納用変数
-	int cmj=0,cma=0,dmj=0,dma=0,emj=0,ema=0,fmj=0,fma=0,gmj=0,gma=0,amj=0,bmj=0,bma=0;//各スケール比率加点方式用変数,mjはメジャー,maはマイナー
-	boolean a=false,b=false,c=false,d=false,e=false,f=false,g=false;//各音階判定用変数
-	boolean as=false,cs=false,ds=false,fs=false,gs=false;//(追加分)音階がシャープの時用のフラグ、ド,レ,ファ,ソ,ラの5音のみシャープあり
-	boolean majar=false,mainare=false; //メジャー、マイナーのフラグ、メジャーなら明るい、マイナーなら暗い曲として認定、各スケールに使用される特徴があるか調べてみる。
+	private byte[] fft; //fftデータ格納用バイト型変数
+	private boolean Scale = false;//スケールが検出できているか、いないかの判定
+	private int max=0; //最大値座標格納用変数
+	private int cmj=0,cma=0,dmj=0,dma=0,emj=0,ema=0,fmj=0,fma=0,gmj=0,gma=0,amj=0,bmj=0,bma=0;//各スケール比率加点方式用変数,mjはメジャー,maはマイナー
+	private boolean a=false,b=false,c=false,d=false,e=false,f=false,g=false;//各音階判定用変数
+	private boolean as=false,cs=false,ds=false,fs=false,gs=false;//(追加分)音階がシャープの時用のフラグ、ド,レ,ファ,ソ,ラの5音のみシャープあり
+	private boolean majar=false,mainare=false; //メジャー、マイナーのフラグ、メジャーなら明るい、マイナーなら暗い曲として認定、各スケールに使用される特徴があるか調べてみる。
 	//ここまで赤木の追加分変数
 	
 	/**
@@ -604,17 +604,27 @@ Log.d("実行時間", (time_a - time_b) + " ms in スケール解析");
 	
 	/**
 	 * 
-	 * 解析中or再生中の場所をパーセンテージで返す
+	 * 解析中or再生中の位置をマイクロ秒で返す
 	 * 
 	 * @return
 	 */
-	public double getDecodePercentage(){
+	public double getCurrentTime(){
 		double current = extractor.getSampleTime();
-		double duration = format.getLong(MediaFormat.KEY_DURATION);
 		if(current < 0){
-			current = duration;
+			current = getDurationTime();
 		}
-		return current / duration;
+		return current;
+	}
+	
+	/**
+	 * 
+	 * 解析中or再生中の長さをマイクロ秒で返す
+	 * 
+	 * @return
+	 */
+	public double getDurationTime(){
+		double duration = format.getLong(MediaFormat.KEY_DURATION);
+		return duration;
 	}
 	
 	/**

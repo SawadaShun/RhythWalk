@@ -215,6 +215,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 
 		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 		Item playingItem = mItems.get(mIndex);
+playingItem.analyse();
 		try {
 			mMediaPlayer.setDataSource(getApplicationContext(), playingItem.getURI());
 			mMediaPlayer.prepare();
