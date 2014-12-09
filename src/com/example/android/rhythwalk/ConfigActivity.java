@@ -37,6 +37,7 @@ public class ConfigActivity extends Activity implements
 	static boolean weatherSwitch = false;
 	static boolean seasonSwitch = false;
 	static boolean placeSwitch = false;
+	static boolean bpmSwitch = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class ConfigActivity extends Activity implements
 		// BPMのON・OFFの切り替え
 		ToggleButton tb1 = (ToggleButton) findViewById(R.id.toggleButton1);
 		tb1.setOnClickListener(this);
-		//tb1.setChecked(MusicPlayerActivity.cf.getFlagState());// 初期状態
+		tb1.setChecked(bpmSwitch);// 初期状態
 
 		final TextView Ttv = (TextView) findViewById(R.id.TtvSeek);
 		final TextView Ttx = (TextView) findViewById(R.id.Timetext);
@@ -203,13 +204,13 @@ public class ConfigActivity extends Activity implements
 
 			break;
 
-/*		case R.id.toggleButton1:
-			if (MainActivity.cf.getFlagState()) {
-				MainActivity.cf.setFlagState(false);
+		case R.id.toggleButton1:
+			if (bpmSwitch) {
+				bpmSwitch = false;
 			} else {
-				MainActivity.cf.setFlagState(true);
+				bpmSwitch = true;
 			}
-			break;*/
+			break;
 		}
 	}
 

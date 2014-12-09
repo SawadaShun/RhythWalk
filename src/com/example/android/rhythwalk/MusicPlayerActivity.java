@@ -61,7 +61,8 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		mTextViewAlbum = (TextView) findViewById(R.id.album);
 		mTextViewTitle = (TextView) findViewById(R.id.title);
 		mChronometer = (Chronometer) findViewById(R.id.chronometer);
-
+		final TextView bpmTxt = (TextView) findViewById(R.id.BPMText);
+		
 		mButtonPlayPause.setOnClickListener(this);
 		mButtonSkip.setOnClickListener(this);
 		mButtonRewind.setOnClickListener(this);
@@ -78,7 +79,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 
 				// タイマーを生成
 				mTimer = new Timer(true);
-				
+								
 				// 周期的に処理
 				mTimer.schedule(new TimerTask() {
 					@Override
@@ -87,18 +88,20 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 						mHandler.post(new Runnable() {
 							public void run() {
 					
-								if (true) {
+								if (ConfigActivity.bpmSwitch) {
 
 									// 歩くBPMの計算式
 									bpm = 6 * (ad.getCounter() - startCounter);
 
 									// BPMの表示
-									TextView bpmTxt = (TextView) findViewById(R.id.BPMText);
+									
 									bpmTxt.setText("" + bpm);
 
 								/**	 ここに歩くBPMと一致したBPMの音楽の再生する処理　*/
 
-								}	
+								}else{
+									bpmTxt.setText(" - ");
+								}
 							
 								// 計測初めの歩数の書き換え
 								startCounter = ad.getCounter();
@@ -108,7 +111,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 					}
 				}, 0, 10000); // 0msから 10000ms(10s)間隔で繰り返す
 
-		
+				
 	}
 
 	@Override
