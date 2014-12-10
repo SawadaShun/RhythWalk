@@ -34,7 +34,7 @@ public class WalkCounterMaster implements SensorEventListener {
 	//計測時間
 	long startTime = 0;
 	//BPM
-	int BPM = 0;
+	static int BPM = 0;
 	
 	// ベクトル量の増加フラグ
 	boolean vectorUp = true;

@@ -70,6 +70,7 @@ public class Item implements Comparable<Object> {
 	 * @param mountain
 	 * @param forest
 	 * @param city
+	 * @data data ファイルのパス
 	 * @param bpm
 	 */
 	public Item(long id, String artist, String title, String album, int truck,
@@ -110,13 +111,26 @@ public class Item implements Comparable<Object> {
 	}
 	
 	/**
-	 * 楽曲のある場所を返す
+	 * 
+	 * 楽曲のある場所をURIで返す<br>
+	 * content://media/external/audio/media/**** のような形式<br>
 	 * 
 	 * @return 場所を示すURI
 	 */
 	public Uri getURI() {
 		return ContentUris.withAppendedId(
 				MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
+	}
+	
+	/**
+	 * 
+	 * 楽曲のある場所をパスで返す<br>
+	 * /mnt/sdcard/Music/*.mp3 のような形式<br>
+	 * 
+	 * @return 場所を示すファイルパス
+	 */
+	public String getPath(){
+		return data;
 	}
 	
 	/**
@@ -328,6 +342,15 @@ public class Item implements Comparable<Object> {
 			}
 			
 			return weather;
+			
+		}else if(ConfigActivity.bpmSwitch){
+			
+			int sortBPM = 0;
+			sortBPM = (int) (Math.abs(MusicPlayerActivity.nowBPM - this.bpm) - Math.abs(MusicPlayerActivity.nowBPM - item.bpm));
+			
+			return  sortBPM;
+			
+			
 			
 		} else {
 			return truck - item.truck;
