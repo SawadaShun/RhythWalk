@@ -44,7 +44,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 
 	WalkCounterMaster ad;
 	Timer mTimer;
-	long bpm;
+	static long nowBPM;
 	long startCounter = 0;
 	
 	@Override
@@ -91,11 +91,11 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 								if (ConfigActivity.bpmSwitch) {
 
 									// 歩くBPMの計算式
-									bpm = 6 * (ad.getCounter() - startCounter);
+									nowBPM = 6 * (ad.getCounter() - startCounter);
 
 									// BPMの表示
 									
-									bpmTxt.setText("" + bpm);
+									bpmTxt.setText("" + nowBPM);
 
 								/**	 ここに歩くBPMと一致したBPMの音楽の再生する処理　*/
 

@@ -254,7 +254,12 @@ public class Item implements Comparable<Object> {
 			
 		}else if(ConfigActivity.bpmSwitch){
 			
-			return  item.bpm - this.bpm;
+			int sortBPM = 0;
+			sortBPM = (int) (Math.abs(MusicPlayerActivity.nowBPM - this.bpm) - Math.abs(MusicPlayerActivity.nowBPM - item.bpm));
+			
+			return  sortBPM;
+			
+			
 			
 		} else {
 			return truck - item.truck;
