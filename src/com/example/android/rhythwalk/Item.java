@@ -39,12 +39,13 @@ public class Item implements Comparable<Object> {
 	final int mountain;
 	final int forest;
 	final int city;
+	final int bpm;
 
 	public Item(long id, String artist, String title, String album, int truck,
 			long duration, int spring, int summer, int autumn, int winter,
 			int morning, int daytime, int evening, int night, int sunny,
 			int cloudy, int rain, int snow, int sea, int mountain, int forest,
-			int city) {
+			int city, int bpm) {
 
 		this.id = id;
 		this.artist = artist;
@@ -72,6 +73,8 @@ public class Item implements Comparable<Object> {
 		this.mountain = mountain;
 		this.forest = forest;
 		this.city = city;
+		
+		this.bpm = bpm;
 	}
 
 	public Uri getURI() {
@@ -141,7 +144,9 @@ public class Item implements Comparable<Object> {
 							song.getSnow(),
 
 							song.getSea(), song.getMountain(),
-							song.getForest(), song.getCity()));
+							song.getForest(), song.getCity(),
+							
+							song.getBPM()));
 
 				} while (cur.moveToNext());
 
@@ -246,6 +251,15 @@ public class Item implements Comparable<Object> {
 			}
 			
 			return weather;
+			
+		}else if(ConfigActivity.bpmSwitch){
+			
+			int sortBPM = 0;
+			sortBPM = (int) (Math.abs(MusicPlayerActivity.nowBPM - this.bpm) - Math.abs(MusicPlayerActivity.nowBPM - item.bpm));
+			
+			return  sortBPM;
+			
+			
 			
 		} else {
 			return truck - item.truck;
