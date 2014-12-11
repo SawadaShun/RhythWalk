@@ -88,10 +88,11 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 						mHandler.post(new Runnable() {
 							public void run() {
 								
-								boolean isPlaying = mMediaPlayer.isPlaying();
-						
+												
 								if (ConfigActivity.bpmSwitch) {
 
+									boolean isPlaying = mMediaPlayer.isPlaying();
+									
 									// 歩くBPMの計算式
 									nowBPM = 6 * (ad.getCounter() - startCounter);
 
@@ -206,7 +207,6 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		
 			Intent i = new Intent(this, ConfigActivity.class);
 			startActivity(i);
-			Toast.makeText(this, "Config", Toast.LENGTH_LONG).show();
 		}
 	}
 
