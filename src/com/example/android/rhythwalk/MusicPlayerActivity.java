@@ -88,9 +88,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 						// mHandlerを通じてUI Threadへ処理をキューイング
 						mHandler.post(new Runnable() {
 							public void run() {
-								
-								boolean isPlaying = mMediaPlayer.isPlaying();
-						
+														
 								if (ConfigActivity.bpmSwitch) {
 
 									// 歩くBPMの計算式
@@ -106,8 +104,11 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 									mItems = Item.getItems(getApplicationContext());
 									
 									onClick(mButtonStop);
-									if (isPlaying) {
-										onClick(mButtonPlayPause);
+									if (mMediaPlayer != null) {
+										boolean isPlaying = mMediaPlayer.isPlaying();
+										if (isPlaying) {
+											onClick(mButtonPlayPause);
+										}
 									}
 									
 								}else{
@@ -136,8 +137,8 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 			mMediaPlayer.setOnPreparedListener(this);
 			mMediaPlayer.setOnInfoListener(this);
 			mMediaPlayer.setOnCompletionListener(this);
-			mVisualiser = new WaveVisualizer(mMediaPlayer);
-			mVisualiser.start();
+//			mVisualiser = new WaveVisualizer(mMediaPlayer);
+//			mVisualiser.start();
 			prepare();
 		}
 	}
@@ -150,7 +151,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 			mMediaPlayer.reset();
 			mMediaPlayer.release();
 			mMediaPlayer = null;
-			mVisualiser.stop();
+//			mVisualiser.stop();	// Actiityが落ちる
 			mChronometer.stop();
 		}
 	}
@@ -219,7 +220,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 
 		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 		Item playingItem = mItems.get(mIndex);
-playingItem.analyse();
+		playingItem.analyse();
 		try {
 			mMediaPlayer.setDataSource(getApplicationContext(), playingItem.getURI());
 			mMediaPlayer.prepare();

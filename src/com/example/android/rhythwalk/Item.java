@@ -218,7 +218,7 @@ public class Item implements Comparable<Object> {
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				if(bpm == WaveInterface.DEFAULT_BPM){
+				if(bpm == SongSituationDB.DEFAULT_BPM){
 					try {
 						Log.i(TAG, data + ": ");
 
@@ -238,6 +238,9 @@ public class Item implements Comparable<Object> {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}					
+				}
+				if(spring == SongSituationDB.DEFAULT_SPRING){
+					// 歌詞解析
 				}
 				
 			}

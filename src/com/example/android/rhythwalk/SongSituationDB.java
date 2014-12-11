@@ -35,6 +35,7 @@ public class SongSituationDB {
     private int forest;
     private int city;
     private int bpm;
+    private static final String FILENAME = "SongSituationDB.txt";
     public final String SPRING = "spring";
     public final String SUMMER = "summer";
     public final String AUTUMN = "autumn";
@@ -55,26 +56,26 @@ public class SongSituationDB {
     /**
      * 未解析のときの値
      */
-    public final int DEFAULT_SPRING = -2;
+    public static final int DEFAULT_SPRING = -2;
     /**
      * 失敗などで解析できない時の値
      */
-    public final int UNKNOWN_SPRING = -1;
+    public static final int UNKNOWN_SPRING = -1;
     /**
      * 未解析のときの値
      */
-    public final int DEFAULT_BPM = -2;
+    public static final int DEFAULT_BPM = -2;
     /**
      * 失敗などで解析できない時の値
      */
-    public final int UNKNOWN_BPM = -1;
+    public static final int UNKNOWN_BPM = -1;
     
     /**
      * 空のシチュエーションDBを作成する
      */
 	SongSituationDB() {
 		id = 0;
-		spring = 0;
+		spring = DEFAULT_SPRING;
 		summer = 0;
 		autumn = 0;
 		winter = 0;
@@ -90,7 +91,7 @@ public class SongSituationDB {
 		mountain = 0;
 		forest = 0;
 		city = 0;
-		bpm = 0;
+		bpm = DEFAULT_BPM;
 	}
 	
 //	public int getMorning() {
@@ -365,7 +366,7 @@ public class SongSituationDB {
 	 */
 	public static List<SongSituationDB> getSongSituationDBsByFile(Context context){
 		List<SongSituationDB> dbs = new ArrayList<SongSituationDB>();
-		String dbs_text = FileWriterUtility.readPrivateFile(context, "SongSituationDB.txt");
+		String dbs_text = FileWriterUtility.readPrivateFile(context, FILENAME);
 		if (dbs_text != null) {
 			String[] rows = dbs_text.split("\n\n");
 			for (int i = 0; i < rows.length; i++) {
@@ -386,6 +387,46 @@ public class SongSituationDB {
 				dbs.add(db);
 			}
 		}		
+		return dbs;
+	}
+	
+	/**
+	 * 
+	 * リストをファイルに保存する
+	 * 
+	 * @param context Activityあたりから取得できるコンテキスト
+	 * @param dbs ファイルに書き込むリスト
+	 * @return 書き込んだSongSituationDBのリスト。失敗のときはnull
+	 */
+	public static List<SongSituationDB> saveSongSituationDBsByFile(Context context, List<SongSituationDB> dbs){
+		String dbs_text = "";
+		for (int i = 0; i < dbs.size(); i++) {
+			SongSituationDB db = dbs.get(i);
+			dbs_text += "id=" + db.getID() + "\n";
+			dbs_text += db.SPRING + "=" + db.getInt(db.SPRING) + "\n";
+			dbs_text += db.SUMMER + "=" + db.getInt(db.SUMMER) + "\n";
+			dbs_text += db.AUTUMN + "=" + db.getInt(db.AUTUMN) + "\n";
+			dbs_text += db.WINTER + "=" + db.getInt(db.WINTER) + "\n";
+			dbs_text += db.MORNING + "=" + db.getInt(db.MORNING) + "\n";
+			dbs_text += db.EVENING + "=" + db.getInt(db.EVENING) + "\n";
+			dbs_text += db.DAYTIME + "=" + db.getInt(db.DAYTIME) + "\n";
+			dbs_text += db.NIGHT + "=" + db.getInt(db.NIGHT) + "\n";
+			dbs_text += db.SUNNY + "=" + db.getInt(db.SUNNY) + "\n";
+			dbs_text += db.CLOUDY + "=" + db.getInt(db.CLOUDY) + "\n";
+			dbs_text += db.RAIN + "=" + db.getInt(db.RAIN) + "\n";
+			dbs_text += db.SNOW + "=" + db.getInt(db.SNOW) + "\n";
+			dbs_text += db.SEA + "=" + db.getInt(db.SEA) + "\n";
+			dbs_text += db.MORNING + "=" + db.getInt(db.MORNING) + "\n";
+			dbs_text += db.FOREST + "=" + db.getInt(db.FOREST) + "\n";
+			dbs_text += db.CITY + "=" + db.getInt(db.CITY) + "\n";
+			dbs_text += db.BPM + "=" + db.getInt(db.BPM) + "\n";
+			dbs_text += "\n";
+		}
+		dbs_text = dbs_text.substring(0, dbs_text.length() - 1);
+		String result = FileWriterUtility.writePublicFile(context, FILENAME, dbs_text);
+		if (result == null) {
+			dbs = null;
+		}
 		return dbs;
 	}
 
