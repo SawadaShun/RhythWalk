@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 
 /**
  * 
@@ -366,7 +367,7 @@ public class SongSituationDB {
 	 */
 	public static List<SongSituationDB> getSongSituationDBsByFile(Context context){
 		List<SongSituationDB> dbs = new ArrayList<SongSituationDB>();
-		String dbs_text = FileWriterUtility.readPrivateFile(context, FILENAME);
+		String dbs_text = FileWriterUtility.readPublicFile(context, FILENAME);
 		if (dbs_text != null) {
 			String[] rows = dbs_text.split("\n\n");
 			for (int i = 0; i < rows.length; i++) {
@@ -375,12 +376,27 @@ public class SongSituationDB {
 				for (int j = 0; j < columns.length; j++) {
 					String[] keyvalue = columns[j].split("="); 
 					String key = keyvalue[0];
-					String value = keyvalue[1];
+					String value;
+					try {
+						value = keyvalue[1];
+					} catch (ArrayIndexOutOfBoundsException e) {
+						value = "";
+					}
 					if (key.equals("id")) {
-						long db_id = Long.parseLong(value);
+						long db_id;
+						try {
+							db_id = Long.parseLong(value);
+						} catch (NumberFormatException e) {
+							db_id = 0;
+						}
 						db.setID(db_id);
 					}else{
-						int value_int = Integer.parseInt(value);
+						int value_int;
+						try {
+							value_int = Integer.parseInt(value);
+						} catch (NumberFormatException e) {
+							value_int = UNKNOWN_SPRING;
+						}
 						db.setInt(key, value_int);						
 					}
 				}
@@ -439,7 +455,7 @@ public class SongSituationDB {
 	 */
 	public static List<SongSituationDB> getSongSituationDBsByAsset(Context context){
 		List<SongSituationDB> dbs = new ArrayList<SongSituationDB>();
-		String dbs_text = FileWriterUtility.readAssetsFile(context, "SongSituationDB.txt");
+		String dbs_text = FileWriterUtility.readAssetsFile(context, "SongSituationDB2.txt");
 		if (dbs_text != null) {
 			String[] rows = dbs_text.split("\n\n");
 			for (int i = 0; i < rows.length; i++) {
@@ -448,13 +464,29 @@ public class SongSituationDB {
 				for (int j = 0; j < columns.length; j++) {
 					String[] keyvalue = columns[j].split("="); 
 					String key = keyvalue[0];
-					String value = keyvalue[1];
+					String value;
+					try{
+						value = keyvalue[1];
+					}catch(ArrayIndexOutOfBoundsException e){
+						value = "";
+					}
 					if (key.equals("durationid")) {
-						long db_id = Long.parseLong(value);
+						long db_id;
+						try {
+							db_id = Long.parseLong(value);
+						} catch (NumberFormatException e) {
+							db_id = 0;
+						}
 						db.setID(db_id);
 					}else{
-						int value_int = Integer.parseInt(value);
-						db.setInt(key, value_int);						
+						
+						int value_int;
+						try{
+							value_int = Integer.parseInt(value);
+						}catch(NumberFormatException e){
+							value_int = UNKNOWN_SPRING;
+						}
+						db.setInt(key, value_int);				
 					}
 				}
 				dbs.add(db);
