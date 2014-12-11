@@ -5,12 +5,6 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <FrameLayout
-        android:id="@+id/wave"
-        android:layout_width="match_parent"
-        android:layout_height="96dp" >
-    </FrameLayout>
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

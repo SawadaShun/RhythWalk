@@ -2,6 +2,7 @@ package com.example.android.rhythwalk;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -134,6 +135,78 @@ public class Item implements Comparable<Object> {
 	}
 	
 	/**
+	 * 
+	 * int型のパラメータを返す<br>
+	 * 各シチュエーションの値など<br>
+	 * 
+	 * @param key パラメータ名
+	 * @return パラメータの値。keyのパラメータ名が存在しないときは-1
+	 */
+	public int getInt(String key){
+		int value;
+		if (key.equals("spring")) {
+			value = spring;
+		} else if (key.equals("summer")) {
+			value = summer;
+		} else if (key.equals("summer")) {
+			value = autumn;
+		} else if (key.equals("summer")) {
+			value = winter;
+		} else if (key.equals("morning")) {
+			value = morning;
+		} else if (key.equals("daytime")) {
+			value = daytime;
+		} else if (key.equals("evening")) {
+			value = evening;
+		} else if (key.equals("night")) {
+			value = night;
+		} else if (key.equals("sunny")) {
+			value = sunny;
+		} else if (key.equals("cloudy")) {
+			value = cloudy;
+		} else if (key.equals("rain")) {
+			value = rain;
+		} else if (key.equals("snow")) {
+			value = snow;
+		} else if (key.equals("sea")) {
+			value = sea;
+		} else if (key.equals("mountain")) {
+			value = mountain;
+		} else if (key.equals("forest")) {
+			value = forest;
+		} else if (key.equals("city")) {
+			value = city;
+		} else if (key.equals("bpm")) {
+			value = bpm;
+		} else {
+			value = -1;
+		}
+		return value;
+	}
+	
+	/**
+	 * 
+	 * String型のパラメータを返す<br>
+	 * 曲名やアーティスト名など<br>
+	 * 
+	 * @param key パラメータ名
+	 * @return パラメータの値。keyのパラメータ名が存在しないときはnull
+	 */
+	public String getString(String key){
+		String value;
+		if (key.equals("title")) {
+			value = title;
+		} else if(key.equals("artist")) {
+			value = null;
+		} else if(key.equals("album")) {
+			value = album;
+		} else {
+			value = null;
+		}
+		return value;
+	}
+	
+	/**
 	 * 楽曲の解析をしていなければする<br>
 	 * 波形解析とか歌詞解析とか時間かかるもの
 	 * 
@@ -151,7 +224,7 @@ public class Item implements Comparable<Object> {
 
 						WavePlayer mWavePlayer = new WavePlayer(data);
 						mWavePlayer.start();
-						while (mWavePlayer.getCurrentTime() != mWavePlayer.getDurationTime()) {
+						while (mWavePlayer.getCurrentTime() / mWavePlayer.getDurationTime() < 0.5) {
 							Thread.sleep(1000);
 						}
 						bpm = mWavePlayer.getBPM();
@@ -207,37 +280,56 @@ public class Item implements Comparable<Object> {
 
 				Log.i(TAG, "Title column index: " + String.valueOf(titleColumn));
 				Log.i(TAG, "ID column index: " + String.valueOf(idColumn));
+				
+				List<SongSituationDB> songs = SongSituationDB.getSongSituationDBsByFile(context);
 
 				// リストに追加
 				do {
-					SongSituationDB song = new SongSituationDB(
-							cur.getInt(durationColumn));
+					SongSituationDB song = new SongSituationDB();
+					for (int i = 0; i < songs.size(); i++) {
+						song = songs.get(i);
+						if(song.getID() == cur.getLong(idColumn)){
+							break;
+						}
+					}
 
 					Log.i(TAG,
 							"Duration: " + cur.getLong(durationColumn)
 									+ " ID: " + cur.getString(idColumn)
 									+ " Title: " + cur.getString(titleColumn)
-									+ " Spring: " + song.getSpring());
+									+ " Spring: " + song.getInt("spring"));
 					items.add(new Item(cur.getLong(idColumn), cur
 							.getString(artistColumn), cur
 							.getString(titleColumn),
 							cur.getString(albumColumn), cur.getInt(idTruck),
 							cur.getLong(durationColumn),
 
-							song.getSpring(), song.getSummer(), song
-									.getAutumn(), song.getWinter(),
-
-							song.getMorning(), song.getDaytime(), song
-									.getEvening(), song.getNight(),
-
-							song.getSunny(), song.getCloudy(), song.getRain(),
-							song.getSnow(),
-
-							song.getSea(), song.getMountain(),
-							song.getForest(), song.getCity(),
+//							song.getSpring(), song.getSummer(), song
+//									.getAutumn(), song.getWinter(),
+//
+//							song.getMorning(), song.getDaytime(), song
+//									.getEvening(), song.getNight(),
+//
+//							song.getSunny(), song.getCloudy(), song.getRain(),
+//							song.getSnow(),
+//
+//							song.getSea(), song.getMountain(),
+//							song.getForest(), song.getCity(),
 							
+							song.getInt(song.SPRING), song.getInt(song.SUMMER), song
+							.getInt(song.AUTUMN), song.getInt(song.WINTER),
+
+							song.getInt(song.MORNING), song.getInt(song.DAYTIME), song
+									.getInt(song.EVENING), song.getInt(song.NIGHT),
+		
+							song.getInt(song.SUNNY), song.getInt(song.CLOUDY), song.getInt(song.RAIN),
+							song.getInt(song.SNOW),
+		
+							song.getInt(song.SEA), song.getInt(song.MOUNTAIN),
+							song.getInt(song.FOREST), song.getInt(song.CITY),
+
 							cur.getString(dataColumn),
-							WaveInterface.DEFAULT_BPM));
+							song.getInt(song.BPM)));
 
 				} while (cur.moveToNext());
 

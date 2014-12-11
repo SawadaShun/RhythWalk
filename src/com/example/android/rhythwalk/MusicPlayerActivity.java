@@ -38,7 +38,6 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 	private TextView mTextViewArtist;
 	private TextView mTextViewAlbum;
 	private TextView mTextViewTitle;
-	private WaveView mWaveView;
 	private Chronometer mChronometer;
 	private Handler mHandler = new Handler();
 	private List<Item> mItems;
@@ -62,9 +61,6 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		mTextViewArtist = (TextView) findViewById(R.id.artist);
 		mTextViewAlbum = (TextView) findViewById(R.id.album);
 		mTextViewTitle = (TextView) findViewById(R.id.title);
-		mWaveView = new WaveView(this);
-		FrameLayout mWaveLayout = (FrameLayout) findViewById(R.id.wave);
-		mWaveLayout.addView(mWaveView);
 		mChronometer = (Chronometer) findViewById(R.id.chronometer);
 		final TextView bpmTxt = (TextView) findViewById(R.id.BPMText);
 		
@@ -141,7 +137,6 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 			mMediaPlayer.setOnInfoListener(this);
 			mMediaPlayer.setOnCompletionListener(this);
 			mVisualiser = new WaveVisualizer(mMediaPlayer);
-			mVisualiser.setWaveView(mWaveView);
 			mVisualiser.start();
 			prepare();
 		}

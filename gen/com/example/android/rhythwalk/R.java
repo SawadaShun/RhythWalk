@@ -35,7 +35,7 @@ public final class R {
         public static final int start=0x7f020015;
     }
     public static final class id {
-        public static final int BPMLabel=0x7f05001c;
+        public static final int BPMLabel=0x7f05001b;
         public static final int BPMText=0x7f050001;
         public static final int Place=0x7f050012;
         public static final int Placetext=0x7f050010;
@@ -50,29 +50,28 @@ public final class R {
         public static final int Weather=0x7f05000a;
         public static final int Weathertext=0x7f050008;
         public static final int WtvSeek=0x7f050009;
-        public static final int album=0x7f05001a;
-        public static final int artist=0x7f050022;
+        public static final int album=0x7f050019;
+        public static final int artist=0x7f050021;
         public static final int button1=0x7f050013;
         public static final int button2=0x7f050003;
-        public static final int chronometer=0x7f05001b;
-        public static final int config=0x7f050025;
-        public static final int imageView1=0x7f05001d;
-        public static final int imageView2=0x7f05001f;
+        public static final int chronometer=0x7f05001a;
+        public static final int config=0x7f050024;
+        public static final int imageView1=0x7f05001c;
+        public static final int imageView2=0x7f05001e;
         public static final int linearLayout1=0x7f050014;
-        public static final int playpause=0x7f050023;
-        public static final int rewind=0x7f05001e;
-        public static final int skip=0x7f050020;
+        public static final int playpause=0x7f050022;
+        public static final int rewind=0x7f05001d;
+        public static final int skip=0x7f05001f;
         public static final int spinner1=0x7f050015;
         public static final int spinner2=0x7f050016;
         public static final int spinner3=0x7f050017;
         public static final int spinner4=0x7f050018;
-        public static final int stop=0x7f050024;
+        public static final int stop=0x7f050023;
         public static final int textView6=0x7f050007;
         public static final int textView7=0x7f05000b;
         public static final int textView8=0x7f05000f;
-        public static final int title=0x7f050021;
+        public static final int title=0x7f050020;
         public static final int toggleButton1=0x7f050002;
-        public static final int wave=0x7f050019;
     }
     public static final class layout {
         public static final int activity_config=0x7f030000;
