@@ -438,7 +438,7 @@ public class SongSituationDB {
 			dbs_text += db.BPM + "=" + db.getInt(db.BPM) + "\n";
 			dbs_text += "\n";
 		}
-		dbs_text = dbs_text.substring(0, dbs_text.length() - 1);
+		dbs_text = dbs_text.substring(0, dbs_text.length() - 2);
 		String result = FileWriterUtility.writePublicFile(context, FILENAME, dbs_text);
 		if (result == null) {
 			dbs = null;

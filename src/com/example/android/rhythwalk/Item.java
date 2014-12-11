@@ -285,8 +285,10 @@ public class Item implements Comparable<Object> {
 				Log.i(TAG, "ID column index: " + String.valueOf(idColumn));
 				
 				List<SongSituationDB> songs = SongSituationDB.getSongSituationDBsByFile(context);
-//				List<SongSituationDB> songs = SongSituationDB.getSongSituationDBsByAsset(context);
-				Log.i(TAG, SongSituationDB.saveSongSituationDBsByFile(context, songs) + "");
+				if(songs.size() == 0){
+					songs = SongSituationDB.getSongSituationDBsByAsset(context);	// ファイルがなかったら。assetsからインポート
+					SongSituationDB.saveSongSituationDBsByFile(context, songs);
+				}
 
 				// リストに追加
 				do {
