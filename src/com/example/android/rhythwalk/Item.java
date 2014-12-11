@@ -26,7 +26,7 @@ public class Item implements Comparable<Object> {
 	final String album;
 	final int truck;
 	final long duration;
-	final int spring;
+	int spring;
 	final int summer;
 	final int autumn;
 	final int winter;
@@ -218,29 +218,35 @@ public class Item implements Comparable<Object> {
 			public void run() {
 				// TODO Auto-generated method stub
 				
+				SongSituationDB song = null;
+				for (int i = 0; i < SongSituationDB.songs.size(); i++) {
+					if(SongSituationDB.songs.get(i).getID() == id){
+						song = SongSituationDB.songs.get(i);
+						break;
+					}
+				}
+				
 				if(bpm == SongSituationDB.DEFAULT_BPM){
 					try {
-						Log.i(TAG, data + ": ");
-
 						WavePlayer mWavePlayer = new WavePlayer(data);
 						mWavePlayer.start();
 						while (mWavePlayer.getCurrentTime() / mWavePlayer.getDurationTime() < 0.5) {
 							Thread.sleep(1000);
 						}
 						bpm = mWavePlayer.getBPM();
-						
-						Log.i(TAG, "BPM: " + bpm + " " + title);
+						song.setInt(song.BPM, bpm);	// ポインタで渡せるんだろうか
+						mWavePlayer.stop();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						Log.e(TAG, e.toString());
-						e.printStackTrace();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Log.e(TAG, e.toString());
 					}					
 				}
+				
 				if(spring == SongSituationDB.DEFAULT_SPRING){
 					// 歌詞解析
+					spring = 0;
+					song.setInt(song.SPRING, spring);
 				}
 				
 			}
@@ -284,20 +290,24 @@ public class Item implements Comparable<Object> {
 				Log.i(TAG, "Title column index: " + String.valueOf(titleColumn));
 				Log.i(TAG, "ID column index: " + String.valueOf(idColumn));
 				
-				List<SongSituationDB> songs = SongSituationDB.getSongSituationDBsByFile(context);
-				if(songs.size() == 0){
-					songs = SongSituationDB.getSongSituationDBsByAsset(context);	// ファイルがなかったら。assetsからインポート
-					SongSituationDB.saveSongSituationDBsByFile(context, songs);
+				SongSituationDB.songs = SongSituationDB.getSongSituationDBsByFile(context);
+				if(SongSituationDB.songs.size() == 0){
+					SongSituationDB.songs = SongSituationDB.getSongSituationDBsByAsset(context);	// ファイルがなかったら。assetsからインポート
 				}
 
 				// リストに追加
 				do {
-					SongSituationDB song = new SongSituationDB();
-					for (int i = 0; i < songs.size(); i++) {
-						song = songs.get(i);
-						if(song.getID() == cur.getLong(idColumn)){
+					SongSituationDB song = null;
+					for (int i = 0; i < SongSituationDB.songs.size(); i++) {
+						if(SongSituationDB.songs.get(i).getID() == cur.getLong(idColumn)){
+							song = SongSituationDB.songs.get(i);
 							break;
 						}
+					}
+					if(song == null){
+						song = new SongSituationDB();
+						song.setID(cur.getLong(idColumn));
+						SongSituationDB.songs.add(song);
 					}
 
 					Log.i(TAG,
@@ -305,7 +315,7 @@ public class Item implements Comparable<Object> {
 									+ " ID: " + cur.getString(idColumn)
 									+ " Title: " + cur.getString(titleColumn)
 									+ " Spring: " + song.getInt("spring"));
-					items.add(new Item(cur.getLong(idColumn), cur
+					Item item = new Item(cur.getLong(idColumn), cur
 							.getString(artistColumn), cur
 							.getString(titleColumn),
 							cur.getString(albumColumn), cur.getInt(idTruck),
@@ -336,9 +346,17 @@ public class Item implements Comparable<Object> {
 							song.getInt(song.FOREST), song.getInt(song.CITY),
 
 							cur.getString(dataColumn),
-							song.getInt(song.BPM)));
+							song.getInt(song.BPM));
+					
+					
+					if (song.getInt(song.SPRING) == song.DEFAULT_SPRING ||
+							(song.getInt(song.WINTER) >= song.getInt(song.SPRING) && song.getInt(song.WINTER) >= song.getInt(song.SUMMER) && song.getInt(song.WINTER) >= song.getInt(song.AUTUMN))) {
+						items.add(item);
+					}
 
 				} while (cur.moveToNext());
+
+				SongSituationDB.saveSongSituationDBsByFile(context, SongSituationDB.songs);
 
 				Log.i(TAG, "Done querying media. MusicRetriever is ready.");
 			}

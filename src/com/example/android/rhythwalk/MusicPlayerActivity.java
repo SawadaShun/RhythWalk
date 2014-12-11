@@ -211,7 +211,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		
 			Intent i = new Intent(this, ConfigActivity.class);
 			startActivity(i);
-			Toast.makeText(this, "Config", Toast.LENGTH_LONG).show();
+//			Toast.makeText(this, "Config", Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -220,22 +220,25 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 
 		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 		Item playingItem = mItems.get(mIndex);
-		playingItem.analyse();
 		try {
 			mMediaPlayer.setDataSource(getApplicationContext(), playingItem.getURI());
 			mMediaPlayer.prepare();
 		} catch (IllegalArgumentException e) {
-			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-			e.printStackTrace();
+//			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 		} catch (SecurityException e) {
-			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-			e.printStackTrace();
+//			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 		} catch (IllegalStateException e) {
-			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-			e.printStackTrace();
+//			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 		} catch (IOException e) {
-			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-			e.printStackTrace();
+//			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 		}
 		mTextViewArtist.setText(playingItem.artist);
 		mTextViewAlbum.setText(playingItem.album);
