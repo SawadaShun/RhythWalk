@@ -36,7 +36,6 @@ public class SongSituationDB {
     private int forest;
     private int city;
     private int bpm;
-    public static List<SongSituationDB> songs;
     private static final String FILENAME = "SongSituationDB.txt";
     public final String SPRING = "spring";
     public final String SUMMER = "summer";
