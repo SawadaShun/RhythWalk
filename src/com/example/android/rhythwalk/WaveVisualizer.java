@@ -30,6 +30,8 @@ public class WaveVisualizer{
 	private byte[] waveform;
 	private byte[] waveform1000ms;
 	private int waveform1000ms_index;
+	private byte[] wavelet_s1;
+	private byte[] wavelet_w1;
 	private HashMap<Integer, Integer> bpms;
 	private boolean isanalyze = true;
 	/**
@@ -68,7 +70,7 @@ public class WaveVisualizer{
 						updateWaveform(waveform);
 
 						if(isanalyze && waveform1000ms_index >= waveform1000ms.length){
-//							updateBPM();
+							updateWavelet();
 						}
 						
 					}
@@ -108,6 +110,8 @@ public class WaveVisualizer{
     	waveform = null;
     	waveform1000ms = null;
     	waveform1000ms_index = -1;
+    	wavelet_s1 = null;
+    	wavelet_w1 = null;
     	bpms = new HashMap<Integer, Integer>();
     	fft = null;
     }
@@ -131,8 +135,13 @@ public class WaveVisualizer{
     	}
     }
     
-    private void updateBPM(){
+    private void updateWavelet(){
     	// ウェーブレット変換
+    	// ここでは行わず、WavePlayerで行う
+    	updateBPM();
+    }
+    
+    private void updateBPM(){
     	// テンポ解析
     	// ここでは行わず、WavePlayerで行う
     }

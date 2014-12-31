@@ -194,7 +194,7 @@ public class WavePlayer {
         	waveform1000ms_index += waveform_sample.length; 
     	}else{
     		if(waveform1000ms != null){
-        		updateBPM();
+        		updateWavelet();
     		}
     		waveform1000ms = new byte[format.getInteger(format.KEY_SAMPLE_RATE)]; 
     		waveform1000ms_index = 0; 
