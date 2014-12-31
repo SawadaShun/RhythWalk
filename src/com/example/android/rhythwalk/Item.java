@@ -283,13 +283,14 @@ public class Item implements Comparable<Object> {
 				Log.i(TAG, "ID column index: " + String.valueOf(idColumn));
 				
 				List<SongSituationDB> songs = SongSituationDB.getSongSituationDBsByFile(context);
-				String test = "";
-
+//				List<SongSituationDB> songs = SongSituationDB.getSongSituationDBsByAsset(context);	// durationで識別する場合
+				
 				// リストに追加
 				do {
 					SongSituationDB song = null;
-					for (int i = 0; i < songs.size(); i++) {
+					for (int i = 0; i < songs.size(); i++) {	// SongSituationのなかから記載をさがす
 						if(songs.get(i).getID() == cur.getLong(idColumn)){
+//						if(songs.get(i).getID() == cur.getLong(durationColumn)){	// durationで識別する場合
 							song = songs.get(i);
 							break;
 						}
@@ -305,9 +306,6 @@ public class Item implements Comparable<Object> {
 									+ " ID: " + cur.getString(idColumn)
 									+ " Title: " + cur.getString(titleColumn)
 									+ " Spring: " + song.getInt("spring"));
-					test += "id=" + cur.getLong(idColumn) + "\n";
-					test += "title=" + cur.getString(titleColumn) + "\n";
-					test += "\n";
 					
 					Item item = new Item(cur.getLong(idColumn), cur
 							.getString(artistColumn), cur
@@ -343,7 +341,7 @@ public class Item implements Comparable<Object> {
 							song.getInt(song.BPM));
 					
 					
-					// 神奈工デモ用。冬な音楽だけを抽出
+					// 神奈工デモ用。未解析な音楽と、冬な音楽だけを抽出
 					if (song.getInt(song.SPRING) == song.DEFAULT_SPRING ||
 							(song.getInt(song.WINTER) > song.getInt(song.SPRING) && song.getInt(song.WINTER) > song.getInt(song.SUMMER) && song.getInt(song.WINTER) > song.getInt(song.AUTUMN))) {
 						items.add(item);
@@ -354,7 +352,6 @@ public class Item implements Comparable<Object> {
 				SongSituationDB.saveSongSituationDBsByFile(context, songs);
 
 				Log.i(TAG, "Done querying media. MusicRetriever is ready.");
-				FileWriterUtility.writePublicFile(context, "SongTitleDB.txt", test);
 			}
 			// カーソルを閉じる
 			cur.close();

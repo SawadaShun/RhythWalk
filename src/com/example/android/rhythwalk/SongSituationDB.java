@@ -19,6 +19,7 @@ import android.util.Log;
 public class SongSituationDB {
 
 	private long id;
+	private String title;
 	private int spring;
 	private int summer;
 	private int autumn;
@@ -76,6 +77,7 @@ public class SongSituationDB {
      */
 	SongSituationDB() {
 		id = 0;
+		title = "";
 		spring = DEFAULT_SPRING;
 		summer = 0;
 		autumn = 0;
@@ -253,6 +255,26 @@ public class SongSituationDB {
 	
 	/**
 	 * 
+	 * タイトルを返す
+	 * 
+	 * @return
+	 */
+	public String getTitle(){
+		return title;
+	}
+	
+	/**
+	 * 
+	 * タイトルを設定する
+	 * 
+	 * @param title
+	 */
+	public void setTitle(String title){
+		this.title = title;
+	}
+	
+	/**
+	 * 
 	 * int型のパラメータを返す<br>
 	 * 各シチュエーションの値など<br>
 	 * 
@@ -390,6 +412,8 @@ public class SongSituationDB {
 							db_id = 0;
 						}
 						db.setID(db_id);
+					}else if(key.equals("title")){
+						db.setTitle(value);
 					}else{
 						int value_int;
 						try {
@@ -419,6 +443,7 @@ public class SongSituationDB {
 		for (int i = 0; i < dbs.size(); i++) {
 			SongSituationDB db = dbs.get(i);
 			dbs_text += "id=" + db.getID() + "\n";
+			dbs_text += "title=" + db.getTitle() + "\n";
 			dbs_text += db.SPRING + "=" + db.getInt(db.SPRING) + "\n";
 			dbs_text += db.SUMMER + "=" + db.getInt(db.SUMMER) + "\n";
 			dbs_text += db.AUTUMN + "=" + db.getInt(db.AUTUMN) + "\n";
@@ -448,7 +473,8 @@ public class SongSituationDB {
 
 	/**
 	 * 
-	 * アセットファイルを読み出して、リストを返す
+	 * アセットファイルを読み出して、リストを返す<br>
+	 * durationidの項目をIDとして設定する<br>
 	 * 
 	 * @param context Activityあたりから取得できるコンテキスト
 	 * @return 読み出したSongSituationDBのリスト
@@ -478,8 +504,9 @@ public class SongSituationDB {
 							db_id = 0;
 						}
 						db.setID(db_id);
+					}else if(key.equals("title")){
+						db.setTitle(value);
 					}else{
-						
 						int value_int;
 						try{
 							value_int = Integer.parseInt(value);
