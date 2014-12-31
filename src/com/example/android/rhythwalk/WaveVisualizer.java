@@ -414,7 +414,7 @@ public class WaveVisualizer{
 	 */
 	public void stop(){
 		visualizer.setEnabled(false);
-		visualizer.release();
+//		visualizer.release();	// Actiityが落ちる
 	}
     
 }

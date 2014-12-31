@@ -92,7 +92,7 @@ public class SongSituationDB {
 		mountain = 0;
 		forest = 0;
 		city = 0;
-		bpm = DEFAULT_BPM;
+		bpm = DEFAULT_BPM;	
 	}
 	
 //	public int getMorning() {
