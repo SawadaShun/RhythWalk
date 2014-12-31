@@ -29,7 +29,7 @@ import android.util.Log;
 // 導入にはAndroidManifestいじる必要がある
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 
-public class WavePlayer implements WaveInterface{
+public class WavePlayer {
 	
 	private MediaExtractor extractor;
 	private MediaFormat format;
@@ -39,19 +39,16 @@ public class WavePlayer implements WaveInterface{
 	private byte[] waveform;
 	private byte[] waveform1000ms;
 	private int waveform1000ms_index;
+	private byte[] wavelet_s1;
+	private byte[] wavelet_w1;
 	private HashMap<Integer, Integer> bpms;
 	private boolean buffer_isplay = false;
+	private byte[] fft;
+	/**
+	 * getBPMにおいて、解析不可のときの戻り値
+	 */
+	public static int UNKNOWN_BPM = -1;
 
-	//ここから赤木の追加分変数
-	private byte[] fft; //fftデータ格納用バイト型変数
-	private boolean Scale = false;//スケールが検出できているか、いないかの判定
-	private int max=0; //最大値座標格納用変数
-	private int cmj=0,cma=0,dmj=0,dma=0,emj=0,ema=0,fmj=0,fma=0,gmj=0,gma=0,amj=0,bmj=0,bma=0;//各スケール比率加点方式用変数,mjはメジャー,maはマイナー
-	private boolean a=false,b=false,c=false,d=false,e=false,f=false,g=false;//各音階判定用変数
-	private boolean as=false,cs=false,ds=false,fs=false,gs=false;//(追加分)音階がシャープの時用のフラグ、ド,レ,ファ,ソ,ラの5音のみシャープあり
-	private boolean majar=false,mainare=false; //メジャー、マイナーのフラグ、メジャーなら明るい、マイナーなら暗い曲として認定、各スケールに使用される特徴があるか調べてみる。
-	//ここまで赤木の追加分変数
-	
 	/**
 	 * 
 	 * インスタンス生成
@@ -60,7 +57,6 @@ public class WavePlayer implements WaveInterface{
 	 * @throws IOException 
 	 */
 	public WavePlayer(String uri) throws IOException{
-		// TODO 自動生成されたコンストラクター・スタブ
 		extractor = new MediaExtractor();
 		extractor.setDataSource(uri);
 		extractor.selectTrack(extractor.getTrackCount() - 1);
@@ -78,7 +74,6 @@ public class WavePlayer implements WaveInterface{
 			
 			@Override
 			public void run() {
-				// TODO 自動生成されたメソッド・スタブ
 				
 				boolean isEOS = false;
 				MediaCodec.BufferInfo bufferinfo = new MediaCodec.BufferInfo();
@@ -113,7 +108,6 @@ public class WavePlayer implements WaveInterface{
 						try {
 							Thread.sleep(16);
 						} catch (Exception e) {
-							// TODO: handle exception
 							Log.e("", e.toString() + " in buffer");
 						}
 					}
@@ -145,7 +139,6 @@ public class WavePlayer implements WaveInterface{
 								try {
 									Thread.sleep(16);
 								} catch (Exception e) {
-									// TODO: handle exception
 									Log.e("", e.toString() + " in outputbuffer");
 								}
 							}
@@ -183,6 +176,8 @@ public class WavePlayer implements WaveInterface{
 		waveform = null;
 		waveform1000ms = null;
 		waveform1000ms_index = -1;
+		wavelet_s1 = null;
+		wavelet_w1 = null;
 		bpms = new HashMap<Integer, Integer>();
 		fft = null;
 	}
@@ -190,7 +185,7 @@ public class WavePlayer implements WaveInterface{
 	private void updateWaveform(byte[] waveform_sample){
 		waveform = waveform_sample;
 		if(waveform != null){
-//			updateFFT();
+			updateFFT();
 		}
     	if(waveform1000ms_index >= 0 && waveform1000ms_index < waveform1000ms.length){ 
     		for (int i = 0; i < waveform_sample.length && waveform1000ms_index + i < waveform1000ms.length; i++) { 
@@ -206,16 +201,23 @@ public class WavePlayer implements WaveInterface{
     	}
 	}
 	
-	private void updateBPM(){
-		// ウェーブレット解析結果生成
-		byte[] wavelet_w1 = new byte[waveform1000ms.length / 2];
-		byte[] wavelet_s1 = new byte[waveform1000ms.length / 2];
+	private void updateWavelet(){
+		// ウェーブレット変換
+		
+		wavelet_w1 = new byte[waveform1000ms.length / 2];
+		wavelet_s1 = new byte[waveform1000ms.length / 2];
 		for (int j = 0; j < waveform1000ms.length / 2 - 1; j++) {
 			int average = (waveform1000ms[j * 2] + waveform1000ms[j * 2 + 1]) / 2;
 			wavelet_s1[j] = (byte)average;
 			int difference = (waveform1000ms[j * 2] - waveform1000ms[j * 2 + 1]);
 			wavelet_w1[j] = (byte)difference;
 		}
+		updateBPM();
+	}
+	
+	private void updateBPM(){
+		// テンポ解析		
+		
 		// 波形の差分をdevision個に分割して最大値、最小値を見る
 		int division = 10;
 		int range = wavelet_w1.length / division;
@@ -319,239 +321,20 @@ public class WavePlayer implements WaveInterface{
 		}
 	}
 	
-	//赤木追加分,ｆｆｔの処理をここにガリガリと書いていきます
-	
-	private void updateFFT()
-	{
-		if(waveform.length < 256){
-			return;
-		}
-		
-		// 1秒ごとの波形の最初の255サンプルだけを見る、とりあえず
-		byte[] data = new byte[255];
-		for (int i = 0; i < data.length; i++) {
-			data[i] = waveform[i];
-		}
-		
-		//小笠原さんのサンプルより
-long time_b;
-long time_a;
-time_b = System.currentTimeMillis();
-		byte [] real = new byte[data.length]; // 実数部
-		byte [] imaginary = new byte[data.length]; // 虚数部
-		
-		for (int n = 0; n < data.length; n++) {
-			double ReF = 0.0, ImF = 0.0;
-			for (int k = 0; k < data.length; k++) {
-				ReF += data[k]*Math.cos(2*Math.PI*k*n/(data.length + 1));
-				ImF += -data[k]*Math.sin(2*Math.PI*k*n/(data.length + 1));
-			}
-ReF /= data.length;
-ImF /= data.length;
-			real[n] = (byte)ReF;	// 実数部
-			imaginary[n] = (byte)ImF;	// 虚数部
- 		}
-time_a = System.currentTimeMillis();
-Log.d("実行時間", (time_a - time_b) + " ms in フーリエさん");
-// double で 64516 回 → 27ms ぐらい
-// byte + int で 65025回 → 26ms ぐらい
-// 4分46秒 の曲を 5分16秒 で解析
-
-		// Android仕様に合わせる
-time_b = System.currentTimeMillis();
-		fft = new byte[real.length * 2 + 2];	// 512
-		fft[0] = 0;
-		fft[1] = 0;
-		for (int i = 1; i < fft.length / 2; i++) {	// i = 1 to 256 
-			double amplitude = Math.sqrt(Math.pow(real[i - 1], 2) + Math.pow(imaginary[i - 1], 2));
-//amplitude /= 100; 
-			if(amplitude > Byte.MAX_VALUE){
-				amplitude = Byte.MAX_VALUE;
-			}
-			fft[i * 2] = (byte)amplitude;
-			fft[i * 2 + 1] = (byte)amplitude;
-		}
-time_a = System.currentTimeMillis();
-Log.d("実行時間", (time_a - time_b) + " ms in Android仕様に合わせる");
-		
-time_b = System.currentTimeMillis();
-		//最大値検出処理
-		if(Scale==false){
-			byte max_value;
-			byte tmp=0;
-			for(int loop=2;loop<51;loop+=2)
-			{
-				
-					if(tmp<fft[loop] /*&& (_clonefft[loop2]!=0 && _clonefft[loop2-2]!=0)*/)
-					{
-						/*byte tmp = _clonefft[loop2];
-						_clonefft[loop2]=_clonefft[loop2-2];
-						_clonefft[loop2-2]=tmp;*/
-						tmp = fft[loop];
-						max=loop;
-						max_value = tmp;
-					}
-				//}
-			}
-			/*ミの判定、ミの周波数はこの番号に格納されているはず。*/
-			/*maxが14「ミ」かつ「ミ」が127の強さを持っていた場合、また前後の周波数成分が50以下の場合、「ミ」と判断する*/
-			while(max > 23){	// 倍音補正かけてみたり（雑 追記(赤木):三倍音などにも対応できるようにしてみました
-				max = max / (max/23+1) ;
-			}
-			// 書き込みテストです、テスト
-							// fft[max] > max_value * 0.5 で最大値50%みたいにしてみたり
-			
-			if(max==12 && ((double)fft[max-2]/(double)fft[max])<0.5 && ((double)fft[max+2]/(double)fft[max])<=0.3 && ((double)fft[max+4]/(double)fft[max])<0.2 && cs==false)//ド#の検出
-			{
-				Log.d("音階","ド#");cs=true;dmj++;emj++;fma++;amj++;bmj++;bma++;
-			}
-			if(max==12 && ((double)fft[max-2]/(double)fft[max])<0.5 && ((double)fft[max+2]/(double)fft[max])>=0.5 && ((double)fft[max+2]/(double)fft[max])<=0.75 && ((double)fft[max+4]/(double)fft[max])>=0.2 && d==false)//レの検出
-			{
-				Log.d("音階","レ");d=true;cmj++;cma++;dmj++;ema++;fmj++;gmj++;gma++;bma++;
-			}
-			if(max==12 && ((double)fft[max-2]/(double)fft[max])>0.39 && ((double)fft[max+2]/(double)fft[max])>=0.9 && ((double)fft[max+4]/(double)fft[max])>0.35 && ds==false )//レ#の検出
-			{
-				Log.d("音階","レ#");ds=true;cma++;emj++;fma++;gma++;bmj++;
-			}
-			if(max==14 && ((double)fft[max-2]/(double)fft[max])<=0.15 && e==false)//ミの検出
-			{
-				Log.d("音階","ミ");e=true;cmj++;dmj++;dma++;emj++;ema++;fmj++;gmj++;amj++;bmj++;bma++;
-			}
-			if(max==16 && ((double)fft[max-2]/(double)fft[max])>=0.7 && ((double)fft[max+2]/(double)fft[max]) >= 0.40 && f==false)//ファの検出
-			{
-				Log.d("音階","ファ");f=true;cmj++;cma++;dma++;fmj++;fma++;gma++;
-			}
-			if(max==16 && ((double)fft[max-2]/(double)fft[max])<=0.5 && ((double)fft[max+2]/(double)fft[max])<=0.5 && fs==false)//ファ#の検出
-			{
-				Log.d("音階","ファ#");fs=true;dmj++;emj++;ema++;gmj++;amj++;bmj++;bma++;
-			}
-			if(max==18 && ((double)fft[max-2]/(double)fft[max])>=0.50 && ((double)fft[max+2]/(double)fft[max]) <= 0.50 && g==false)//ソの検出
-			{
-				Log.d("音階","ソ");g=true;cmj++;cma++;dmj++;dma++;ema++;fmj++;fma++;gmj++;gma++;bma++;
-			}
-			if(max==18 && ((double)fft[max+2]/(double)fft[max])<=0.30 && ((double)fft[max+2]/(double)fft[max])<0.5 && gs==false)//ソ#の検出
-			{
-				Log.d("音階","ソ#");gs=true;cma++;emj++;fma++;amj++;bmj++;
-			}
-			if(max==20 && ((double)fft[max-2]/(double)fft[max])>=0.5 && ((double)fft[max+2]/(double)fft[max])<0.5 && a==false)//ラの検出
-			{
-				Log.d("音階","ラ");a=true;cmj++;dmj++;dma++;emj++;ema++;fmj++;gmj++;gma++;amj++;bma++;
-			}
-			if(max==20 && ((double)fft[max-2]/(double)fft[max])<0.5 && ((double)fft[max+2]/(double)fft[max])<0.5 && as==false )//ラ#の検出
-			{
-				Log.d("音階","ラ#");as=true;cma++;dma++;emj++;ema++;fmj++;gma++;bmj++;
-			}
-			if(max==22 && ((double)fft[max-2]/(double)fft[max])>=0.5 && ((double)fft[max+2]/(double)fft[max])<=0.5 && b==false )//シの検出
-			{
-				Log.d("音階","シ");b=true;cmj++;dmj++;emj++;ema++;gmj++;amj++;bmj++;bma++;
-			}
-			if(max==22 && ((double)fft[max-2]/(double)fft[max])<=0.3 && c==false )//ドの検出
-			{
-				Log.d("音階","ド");c=true;cmj++;cma++;dma++;ema++;fmj++;fma++;gmj++;gma++;dmj--;
-			}
-			// Log.d("", (c ? "C" : "-") + (d ? "D" : "-") + (e ? "E" : "-") + (f ? "F" : "-") + (g ? "G" : "-") + (a ? "A" : "-") + (b ? "B" : "-") + );
-
-			//各種スケールの検出を行う、取得された音階を参考にスケールの判定を行う
-			if(Scale!=true){
-
-				if(cmj==6)
-				{
-					Log.d("スケール","Cメジャースケール");
-					majar = true;
-					Scale=true;
-				}
-				if(cma==6)
-				{
-					Log.d("スケール","Cマイナースケール");
-					mainare=true;
-					Scale=true;
-				}
-				//ここまでCスケール
-				//ここからDスケール
-				if(dmj==6)
-				{
-					Log.d("スケール","Dメジャースケール");
-					majar = true;
-					Scale = true;
-				}
-				if(dma==6)
-				{
-					Log.d("スケール","Dマイナースケール");
-					mainare = true;
-					Scale = true;
-				}
-				//ここまでDスケール
-				//ここからEスケール
-				if(emj==6)
-				{
-					Log.d("スケール","Dメジャースケール");
-					majar = true;
-					Scale = true;
-				}
-				if(ema==6)
-				{
-					Log.d("スケール","Dマイナースケール");
-					mainare = true;
-					Scale = true;
-				}
-				//ここまでEスケール
-				//ここからFスケール
-				if(fmj==6)
-				{
-					Log.d("スケール","Dメジャースケール");
-					majar = true;
-					Scale = true;
-				}
-				if(fma==6)
-				{
-					Log.d("スケール","Dマイナースケール");
-					mainare = true;
-					Scale = true;
-				}
-				//ここからGスケール
-				if(gmj==6)
-				{
-					Log.d("スケール","Dメジャースケール");
-					majar = true;
-					Scale = true;
-				}
-				if(gma==6)
-				{
-					Log.d("スケール","Dマイナースケール");
-					mainare = true;
-					Scale = true;
-				}
-				//ここからaスケール
-				if(amj==6)
-				{
-					Log.d("スケール","Dメジャースケール");
-					majar = true;
-					Scale = true;
-				}
-				//ここからbスケール
-				if(bmj==6)
-				{
-					Log.d("スケール","Dメジャースケール");
-					majar = true;
-					Scale = true;
-				}
-				if(bma==6)
-				{
-					Log.d("スケール","Dマイナースケール");
-					mainare = true;
-					Scale = true;
-				}
-			}
-		}
-time_a = System.currentTimeMillis();
-Log.d("実行時間", (time_a - time_b) + " ms in スケール解析");
+	private void updateFFT(){
+		// 高速フーリエ変換
+		// ここでは行わず、WaveVisualizerで行う
+		updateScale();
 	}
 	
-	//追加分、ここで終了
-	
+	private void updateScale(){
+		// スケール解析
+		// ここでは行わず、WaveVisualizerで行う		
+	}
+		
 	/**
 	 * 
-	 * 解析中or再生中の波形を返す
+	 * 解析中、または再生中の波形を返す
 	 * 
 	 * @return
 	 */
@@ -559,21 +342,10 @@ Log.d("実行時間", (time_a - time_b) + " ms in スケール解析");
 		byte[] waveform_sample = waveform;
 		return waveform_sample;
 	}
-	
+		
 	/**
 	 * 
-	 * FFT解析結果を返す
-	 * 
-	 * @return
-	 */
-	public byte[] getFFT(){
-		return fft;
-	}
-	
-	
-	/**
-	 * 
-	 * 解析したBPMを返す
+	 * 解析中、または再生中までの解析したテンポをBPMで返す<br>
 	 * 
 	 * @return
 	 */
@@ -590,18 +362,29 @@ Log.d("実行時間", (time_a - time_b) + " ms in スケール解析");
 		}
 		return max_index;
 	}
+		
+	/**
+	 * 
+	 * 解析中、または再生中の波形の高速フーリエ変換した結果を返す<br>
+	 * スケール解析はWaveVisualizerで行うため、ここでは常にnullを返す<br>
+	 * 
+	 * @return
+	 */
+	public byte[] getFFT(){
+		return fft;
+	}
 	
 	/**
 	 * 
-	 * 将来用。解析したコードを返す
+	 * 将来用。解析中、または再生中までの解析したスケールを返す
 	 * 
 	 * @return 
 	 */
-	public String getCode(){
+	public String getScale(){
 		// 遠藤による提案：これで外部からアクセスできると楽しい
 		return "";
 	}
-	
+
 	/**
 	 * 
 	 * 解析中or再生中の位置をマイクロ秒で返す
