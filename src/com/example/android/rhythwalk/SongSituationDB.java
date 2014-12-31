@@ -69,7 +69,7 @@ public class SongSituationDB {
     /**
      * 失敗などで解析できない時の値
      */
-    public static final int UNKNOWN_BPM = -1;
+    public static final int UNKNOWN_BPM = WavePlayer.UNKNOWN_BPM;
     
     /**
      * 空のシチュエーションDBを作成する
