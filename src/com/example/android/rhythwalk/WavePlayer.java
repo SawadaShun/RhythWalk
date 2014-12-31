@@ -47,7 +47,7 @@ public class WavePlayer {
 	/**
 	 * getBPMにおいて、解析不可のときの戻り値
 	 */
-	public static int UNKNOWN_BPM = -1;
+	public static final int UNKNOWN_BPM = -1;
 
 	/**
 	 * 
@@ -285,7 +285,7 @@ public class WavePlayer {
 		int[] bpmmin = new int[beatmin_indexes.size() - 1];
 		int[] bpmmax = new int[beatmax_indexes.size() - 1];
 		int maximum_bpm = 185;
-		double msper1sample = 1000.0 / (format.getInteger(format.KEY_SAMPLE_RATE) / 2);	// 1085.9 は環境依存要素かもしれない。1000msを表している
+		double msper1sample = 1085.9 / (format.getInteger(format.KEY_SAMPLE_RATE) / 2);	// 1085.9 は環境依存要素かもしれない。1000msを表している
 		for (int i = 0; i < beatmin_indexes.size() - 1; i++) {
 			int duration_sample = beatmin_indexes.get(i + 1) - beatmin_indexes.get(i);
 			bpmmin[i] = (int)(60000 / (duration_sample * msper1sample));
@@ -426,7 +426,6 @@ public class WavePlayer {
 		try {
 			buffer_thread.join();
 		} catch (Exception e) {
-			// TODO: handle exception
 			Log.e("", e.toString() + " in stop");
 		}
 		codec.stop();

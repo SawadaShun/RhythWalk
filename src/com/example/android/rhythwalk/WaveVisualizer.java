@@ -37,7 +37,7 @@ public class WaveVisualizer{
 	/**
 	 * getBPMにおいて、解析不可のときの戻り値
 	 */
-	public static int UNKNOWN_BPM = -1;
+	public static final int UNKNOWN_BPM = -1;
 	//ここから赤木の追加分変数
 	private byte[] fft; //fftデータ格納用バイト型変数
 	private boolean Scale = false;//スケールが検出できているか、いないかの判定

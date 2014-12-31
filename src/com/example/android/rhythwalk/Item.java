@@ -208,7 +208,7 @@ public class Item implements Comparable<Object> {
 	
 	/**
 	 * 楽曲の解析をしていなければする<br>
-	 * 波形解析とか歌詞解析とか時間かかるもの
+	 * テンポ解析とか歌詞解析とか時間かかるもの
 	 * 
 	 */
 	public void analyse(){
@@ -218,6 +218,7 @@ public class Item implements Comparable<Object> {
 			public void run() {
 				
 				if(bpm == SongSituationDB.DEFAULT_BPM){
+					// テンポ解析
 					try {
 						WavePlayer mWavePlayer = new WavePlayer(data);
 						mWavePlayer.start();
@@ -293,7 +294,7 @@ public class Item implements Comparable<Object> {
 							break;
 						}
 					}
-					if(song == null){
+					if(song == null){	// ファイルに記載のない、新たな音楽
 						song = new SongSituationDB();
 						song.setID(cur.getLong(idColumn));
 						songs.add(song);
@@ -342,6 +343,7 @@ public class Item implements Comparable<Object> {
 							song.getInt(song.BPM));
 					
 					
+					// 神奈工デモ用。冬な音楽だけを抽出
 					if (song.getInt(song.SPRING) == song.DEFAULT_SPRING ||
 							(song.getInt(song.WINTER) > song.getInt(song.SPRING) && song.getInt(song.WINTER) > song.getInt(song.SUMMER) && song.getInt(song.WINTER) > song.getInt(song.AUTUMN))) {
 						items.add(item);
