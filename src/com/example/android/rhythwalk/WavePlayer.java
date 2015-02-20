@@ -265,9 +265,14 @@ public class WavePlayer {
 		ArrayList<Integer> beatmax_indexes = new ArrayList<Integer>();
 		for (int i = 0; i < min_indexes.length; i++) {
 			if(min_values[i] < min_threshold){
-				if(beatmin_indexes.isEmpty() || min_indexes[i] - beatmin_indexes.get(beatmin_indexes.size() - 1) >= minimum_duration){	//	精度向上の余地ありかも
-					beatmin_indexes.add(min_indexes[i]);								
-				}
+//				if(beatmin_indexes.isEmpty()){	//	精度向上の余地ありかも
+//					beatmin_indexes.add(min_indexes[i]);								
+//				}else if(min_indexes[i] - beatmin_indexes.get(beatmin_indexes.size() - 1) >= minimum_duration){
+//					beatmin_indexes.add(min_indexes[i]);
+//				}
+				
+//				if(次のビートとの間隔が長い)	そのまま追加
+//				else	平均して追加
 			}
 			if(max_values[i] > max_threshold){
 				if(beatmax_indexes.isEmpty() || max_indexes[i] - beatmax_indexes.get(beatmax_indexes.size() - 1) >= minimum_duration){
