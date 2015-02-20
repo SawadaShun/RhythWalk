@@ -30,7 +30,7 @@ public class ConfigActivity extends Activity implements
 	static WeatherAnalyze wa = new WeatherAnalyze();
 	static PlaceAnalyze pa = new PlaceAnalyze();
 
-	Calendar calendar = Calendar.getInstance();
+//	Calendar calendar = Calendar.getInstance();
 	public SeekBar Tsb;
 
 	static boolean timeSwitch = false;
@@ -208,7 +208,13 @@ public class ConfigActivity extends Activity implements
 			if (bpmSwitch) {
 				bpmSwitch = false;
 			} else {
+				
 				bpmSwitch = true;
+				timeSwitch = false;
+				weatherSwitch = false;
+				seasonSwitch = false;
+				placeSwitch = false;
+				
 			}
 			break;
 		}

@@ -48,18 +48,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="177dp"
-                android:layout_height="192dp"
-                android:layout_gravity="center"
-                android:layout_weight="14.50"
-                android:alpha="0.5"
-                android:src="@drawable/musicalnote_shadow" />
+            <ViewFlipper
+                android:id="@+id/viewFlipper1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="177dp"
+                    android:layout_height="192dp"
+                    android:layout_weight="14.50"
+                    android:alpha="0.5"
+                    android:src="@drawable/musicalnote_shadow" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="177dp"
+                    android:layout_height="192dp"
+                    android:layout_weight="14.50"
+                    android:alpha="0.5"
+                    android:src="@drawable/musicalnote_shadow" />
+
+            </ViewFlipper>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center" >
 
                 <ImageButton
                     android:id="@+id/rewind"
@@ -86,6 +103,7 @@
                     android:background="#00000000"
                     android:contentDescription="@string/skip"
                     android:src="@drawable/button_right" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -108,8 +126,10 @@
                     android:layout_gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="15sp" />
+
             </LinearLayout>
         </FrameLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -117,15 +137,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal" >
-
-        <ImageButton
-            android:id="@+id/playpause"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="1dp"
-            android:background="#00000000"
-            android:contentDescription="@string/play"
-            android:src="@drawable/media_play" />
 
         <ImageButton
             android:id="@+id/stop"
@@ -137,12 +148,20 @@
             android:src="@drawable/media_stop" />
 
         <ImageButton
+            android:id="@+id/playpause"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="1dp"
+            android:background="#00000000"
+            android:contentDescription="@string/play"
+            android:src="@drawable/media_play" />
+
+        <ImageButton
             android:id="@+id/config"
-            android:layout_width="75dp"
+            android:layout_width="60dp"
             android:layout_height="75dp"
             android:background="#00000000"
             android:src="@android:drawable/ic_menu_sort_by_size" />
-
     </LinearLayout>
 
 </LinearLayout>

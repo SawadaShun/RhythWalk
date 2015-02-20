@@ -3,12 +3,23 @@
  */
 package com.example.android.rhythwalk;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+import android.util.Log;
+
 /**
+ * 
+ * 音楽のシチュエーションをサーバ、ファイル、アセットから取得できるクラス
+ * 
  * @author kiefer7126
  *
  */
 public class SongSituationDB {
 
+	private long id;
+	private String title;
 	private int spring;
 	private int summer;
 	private int autumn;
@@ -26,1827 +37,488 @@ public class SongSituationDB {
     private int forest;
     private int city;
     private int bpm;
+    private static final String FILENAME = "SongSituationDB.txt";
+    public final String SPRING = "spring";
+    public final String SUMMER = "summer";
+    public final String AUTUMN = "autumn";
+    public final String WINTER = "winter";
+    public final String MORNING = "morning";
+    public final String EVENING = "evening";
+    public final String DAYTIME = "daytime";
+    public final String NIGHT = "night";
+    public final String SUNNY = "sunny";
+    public final String CLOUDY = "cloudy";
+    public final String RAIN = "rain";
+    public final String SNOW = "snow";
+    public final String SEA = "sea";
+    public final String MOUNTAIN = "mountain";
+    public final String FOREST = "forest";
+    public final String CITY = "city";
+    public final String BPM = "bpm";
+    /**
+     * 未解析のときの値
+     */
+    public static final int DEFAULT_SPRING = -2;
+    /**
+     * 失敗などで解析できない時の値
+     */
+    public static final int UNKNOWN_SPRING = -1;
+    /**
+     * 未解析のときの値
+     */
+    public static final int DEFAULT_BPM = -2;
+    /**
+     * 失敗などで解析できない時の値
+     */
+    public static final int UNKNOWN_BPM = WavePlayer.UNKNOWN_BPM;
     
-	SongSituationDB(int durationID) {
-
-		switch (durationID) {
-		case 238480:// 真っ赤な空を見ただろうか
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 11;
-		    daytime = 0;
-		    night = 0;
-			sunny = 5;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-
-		case 276645:// 睡眠時間
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 9;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-
-		case 323265:// 粉雪
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 15;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 10;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-
-		case 217321:// 紫陽花の詩
-			spring = 0;
-			summer = 3;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 8;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 366879:// さよならメモリーズ
-			spring = 12;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 244186:// ホタルノヒカリ
-			spring = 0;
-			summer = 8;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 7;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 3;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 295869:// 桃ノ花ビラ
-			spring = 4;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 293042:// 夏の大三角形
-			spring = 0;
-			summer = 12;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 10;
-		    sunny = 3;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 271966:// 春風
-			spring = 9;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 2;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 1;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 280866:// 花火
-			spring = 0;
-			summer = 15;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 11;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 263679:// 3月9日
-			spring = 6;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 317881:// 夏空
-			spring = 0;
-			summer = 16;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 4;
-		    night = 0;
-		    sunny = 7;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 296229:// 秋桜
-			spring = 0;
-			summer = 0;
-			autumn = 15;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 268460:// 蛍火
-			spring = 0;
-			summer = 11;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 10;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 6;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 360075:// うたかた花火
-			spring = 0;
-			summer = 16;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 14;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 281974:// 12月のリング
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 15;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 5;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 263166:// 君がいた夏
-			spring = 0;
-			summer = 11;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 5;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 268464:// HANABI
-			spring = 0;
-			summer = 17;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 10;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 411760:// メリークリスマス
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 14;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 5;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 7;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 4;
-			bpm = 0;
-			break;
-			
-		case 358232:// SAKURA
-			spring = 13;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 276000:// ミュージック・アワー
-			spring = 0;
-			summer = 9;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 4;
-		    night = 0;
-		    sunny = 7;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 5;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 261546:// 卒業
-			spring = 9;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 244619://　卒業写真
-			spring = 6;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 222272:// 夏祭り
-			spring = 0;
-			summer = 17;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 3;
-		    daytime = 0;
-		    night = 4;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 258043:// 夏空グラフィティ
-			spring = 0;
-			summer = 8;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 8;
-		    night = 0;
-		    sunny = 10;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 253866:// 夏色惑星
-			spring = 0;
-			summer = 5;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 250565:// 春景色
-			spring = 4;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 260823:// 桜
-			spring = 6;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 231027:// 桜並木道
-			spring = 7;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 369652:// スノースマイル
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 11;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 8;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 262327:// 花は桜君は美し
-			spring = 10;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-
-		case 383841:// 赤い糸
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 5;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 2;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-
-		case 267786:// 車輪の唄
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 5;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 2;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 397902:// 銀河鉄道
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 8;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 298718:// 雨の遊園地
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 10;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 230687:// 雨傘
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 12;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 236064:// シャカビーチ
-			spring = 0;
-			summer = 10;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 4;
-		    night = 0;
-		    sunny = 10;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 9;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 259109:// 星に願いを
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 9;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-				
-		case 239700:// Crazy For You
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 12;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 253056:// Rainy
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 9;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-
-		case 341238:// スターライトパレード
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 3;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 316160:// 一番星
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 11;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 306704:// 太陽スキャンダラス
-			spring = 0;
-			summer = 3;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 3;
-		    night = 0;
-		    sunny = 11;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 339647:// 君の知らない物語
-			spring = 0;
-			summer = 3;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 17;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 279071:// Over the rain
-			spring = 0;
-			summer = 1;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 5;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 5;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 229065:// Happy days
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 9;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-
-		case 286436:// Prefect Day
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 8;
-		    night = 0;
-		    sunny = 14;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-
-		case 317764:// カブトムシ
-			spring = 0;
-			summer = 1;
-			autumn = 3;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 1;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 4;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 295340:// チョコレイト・ディスコ
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 3;
-			morning = 0;
-		    evening = 0;
-		    daytime = 8;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 332808:// プラネタリウム
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 10;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 296833:// 迷子犬と雨のビート
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 1;
-		    daytime = 1;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 11;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 313287:// 真昼の月
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 10;
-		    night = 0;
-		    sunny = 2;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 242704:// Rain
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 15;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 295161:// Love and Roll
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 1;
-		    evening = 0;
-		    daytime = 6;
-		    night = 0;
-		    sunny = 4;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 212376:// Rising star
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 5;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 211305:// 24時
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 9;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 256052:// 虹の見える明日へ
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 4;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 257806:// ライジングサン
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 6;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 5;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 318380:// 虹
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 7;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-
-		case 290642:// 夜が明けるよ
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 3;
-		    evening = 0;
-		    daytime = 0;
-		    night = 5;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 310613:// プラネタリウム
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 8;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 310648:// 星屑サンセット
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 12;
-		    sunny = 2;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 227213:// 星屑カンテラ
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 9;
-		    sunny = 1;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 247484:// 青空 Very good days!!
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 5;
-		    night = 0;
-		    sunny = 14;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-		
-		case 319216:// AM11:00
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 6;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 293590://　Good-bye Days
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 6;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 355587://　プラネタリウム
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 11;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-			
-		case 263549://　天体観測
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 14;
-		    sunny = 4;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
-
-		case 32067:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 60;
-			break;
-
-		case 27492:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 70;
-			break;
-			
-		case 24056:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 80;
-			break;
-			
-		case 21386:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 90;
-			break;
-			
-		case 19249:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 100;
-			break;
-			
-		case 17508:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 110;
-			break;
-			
-		case 16068:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 120;
-			break;
-			
-		case 14838:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 130;
-			break;
-			
-		case 13769:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 140;
-			break;
-			
-		case 12864:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 150;
-			break;
-			
-		case 12051:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 160;
-			break;
-			
-		case 11355:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 170;
-			break;
-			
-		case 10728:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 180;
-			break;
-			
-		case 10170:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 190;
-			break;
-			
-		case 9660:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 200;
-			break;
-			
-		default:
-			spring = 0;
-			summer = 0;
-			autumn = 0;
-			winter = 0;
-			morning = 0;
-		    evening = 0;
-		    daytime = 0;
-		    night = 0;
-		    sunny = 0;
-			cloudy = 0;
-			rain = 0;
-			snow = 0;
-			sea = 0;
-			mountain = 0;
-			forest = 0;
-			city = 0;
-			bpm = 0;
-			break;
+    /**
+     * 空のシチュエーションDBを作成する
+     */
+	SongSituationDB() {
+		id = 0;
+		title = "";
+		spring = DEFAULT_SPRING;
+		summer = 0;
+		autumn = 0;
+		winter = 0;
+		morning = 0;
+	    evening = 0;
+	    daytime = 0;
+	    night = 0;
+	    sunny = 0;
+		cloudy = 0;
+		rain = 0;
+		snow = 0;
+		sea = 0;
+		mountain = 0;
+		forest = 0;
+		city = 0;
+		bpm = DEFAULT_BPM;	
+	}
+	
+//	public int getMorning() {
+//		return morning;
+//	}
+//
+//	public int getDaytime() {
+//		return daytime;
+//	}
+//
+//	public int getEvening() {
+//		return evening;
+//	}
+//
+//	public int getNight() {
+//		return night;
+//	}
+//
+//	public void setMorning(int morning) {
+//		this.morning = morning;
+//	}
+//
+//	public void setDaytime(int daytime) {
+//		this.daytime = daytime;
+//	}
+//
+//	public void setEvening(int evening) {
+//		this.evening = evening;
+//	}
+//
+//	public void setNight(int night) {
+//		this.night = night;
+//	}
+//	
+//	public int getSpring() {
+//		return spring;
+//	}
+//
+//	public int getSummer() {
+//		return summer;
+//	}
+//
+//	public int getAutumn() {
+//		return autumn;
+//	}
+//
+//	public int getWinter() {
+//		return winter;
+//	}
+//
+//	public void setSpring(int spring) {
+//		this.spring = spring;
+//	}
+//
+//	public void setSummer(int summer) {
+//		this.summer = summer;
+//	}
+//
+//	public void setAutumn(int autumn) {
+//		this.autumn = autumn;
+//	}
+//
+//	public void setWinter(int winter) {
+//		this.winter = winter;
+//	}
+//	
+//	public int getSunny() {
+//		return sunny;
+//	}
+//
+//	public int getCloudy() {
+//		return cloudy;
+//	}
+//
+//	public int getRain() {
+//		return rain;
+//	}
+//
+//	public int getSnow() {
+//		return snow;
+//	}
+//
+//	public void setSunny(int sunny) {
+//		this.sunny = sunny;
+//	}
+//
+//	public void setCloudy(int cloudy) {
+//		this.cloudy = cloudy;
+//	}
+//
+//	public void setRain(int rain) {
+//		this.rain = rain;
+//	}
+//
+//	public void setSnow(int snow) {
+//		this.snow = snow;
+//	}
+//	
+//	public int getSea() {
+//		return sea;
+//	}
+//
+//	public int getMountain() {
+//		return mountain;
+//	}
+//
+//	public int getForest() {
+//		return forest;
+//	}
+//
+//	public int getCity() {
+//		return city;
+//	}
+//
+//	public void setSea(int sea) {
+//		this.sea = sea;
+//	}
+//
+//	public void setMountain(int mountain) {
+//		this.mountain = mountain;
+//	}
+//
+//	public void setForest(int forest) {
+//		this.forest = forest;
+//	}
+//
+//	public void setCity(int city) {
+//		this.city = city;
+//	}
+//	
+//	public int getBPM(){
+//		return bpm;
+//	}
+//	
+//	public void setBPM(int bpm){
+//		this.bpm = bpm;
+//	}
+	
+	/**
+	 * 
+	 * IDを返す
+	 * 
+	 * @return
+	 */
+	public long getID() {
+		return id;
+	}
+	
+	/**
+	 * 
+	 * IDを設定する
+	 * 
+	 * @param id
+	 */
+	public void setID(long id){
+		this.id = id;  
+	}
+	
+	/**
+	 * 
+	 * タイトルを返す
+	 * 
+	 * @return
+	 */
+	public String getTitle(){
+		return title;
+	}
+	
+	/**
+	 * 
+	 * タイトルを設定する
+	 * 
+	 * @param title
+	 */
+	public void setTitle(String title){
+		this.title = title;
+	}
+	
+	/**
+	 * 
+	 * int型のパラメータを返す<br>
+	 * 各シチュエーションの値など<br>
+	 * 
+	 * @param key パラメータ名
+	 * @return パラメータの値。keyのパラメータ名が存在しないときは-1
+	 */
+	public int getInt(String key){
+		int value;
+		if (key.equals(SPRING)) {
+			value = spring;
+		} else if (key.equals(SUMMER)) {
+			value = summer;
+		} else if (key.equals(AUTUMN)) {
+			value = autumn;
+		} else if (key.equals(WINTER)) {
+			value = winter;
+		} else if (key.equals(MORNING)) {
+			value = morning;
+		} else if (key.equals(DAYTIME)) {
+			value = daytime;
+		} else if (key.equals(EVENING)) {
+			value = evening;
+		} else if (key.equals(NIGHT)) {
+			value = night;
+		} else if (key.equals(SUNNY)) {
+			value = sunny;
+		} else if (key.equals(CLOUDY)) {
+			value = cloudy;
+		} else if (key.equals(RAIN)) {
+			value = rain;
+		} else if (key.equals(SNOW)) {
+			value = snow;
+		} else if (key.equals(SEA)) {
+			value = sea;
+		} else if (key.equals(MOUNTAIN)) {
+			value = mountain;
+		} else if (key.equals(FOREST)) {
+			value = forest;
+		} else if (key.equals(CITY)) {
+			value = city;
+		} else if (key.equals(BPM)) {
+			value = bpm;
+		} else {
+			value = -1;
+		}
+		return value;
+	}
+	
+	/**
+	 * 
+	 * int型のパラメータを設定する<br>
+	 * 各シチュエーションの値など<br>
+	 * 
+	 * @param key パラメータ名
+	 * @param value パラメータの値
+	 */
+	public void setInt(String key, int value){
+		if (key.equals(SPRING)) {
+			spring = value;
+		} else if (key.equals(SUMMER)) {
+			summer = value;
+		} else if (key.equals(AUTUMN)) {
+			autumn = value;
+		} else if (key.equals(WINTER)) {
+			winter = value;
+		} else if (key.equals(MORNING)) {
+			morning = value;
+		} else if (key.equals(DAYTIME)) {
+			daytime = value;
+		} else if (key.equals(EVENING)) {
+			evening = value;
+		} else if (key.equals(NIGHT)) {
+			night = value;
+		} else if (key.equals(SUNNY)) {
+			sunny = value;
+		} else if (key.equals(CLOUDY)) {
+			cloudy = value;
+		} else if (key.equals(RAIN)) {
+			rain = value;
+		} else if (key.equals(SNOW)) {
+			snow = value;
+		} else if (key.equals(SEA)) {
+			sea = value;
+		} else if (key.equals(MOUNTAIN)) {
+			mountain = value;
+		} else if (key.equals(FOREST)) {
+			forest = value;
+		} else if (key.equals(CITY)) {
+			city = value;
+		} else if (key.equals(BPM)) {
+			bpm = value;
 		}
 	}
-
-	public int getMorning() {
-		return morning;
-	}
-
-	public int getDaytime() {
-		return daytime;
-	}
-
-	public int getEvening() {
-		return evening;
-	}
-
-	public int getNight() {
-		return night;
-	}
-
-	public void setMorning(int morning) {
-		this.morning = morning;
-	}
-
-	public void setDaytime(int daytime) {
-		this.daytime = daytime;
-	}
-
-	public void setEvening(int evening) {
-		this.evening = evening;
-	}
-
-	public void setNight(int night) {
-		this.night = night;
+	
+	/**
+	 * 
+	 * 将来用。サーバを検索し、何かに一致するSongSituationDBを返す<br>
+	 * 返るのはリストではない<br>
+	 * 
+	 * @return 
+	 */
+	public static List<SongSituationDB> getSongSituationDBByServer(){
+		return null;
 	}
 	
-	public int getSpring() {
-		return spring;
-	}
-
-	public int getSummer() {
-		return summer;
-	}
-
-	public int getAutumn() {
-		return autumn;
-	}
-
-	public int getWinter() {
-		return winter;
-	}
-
-	public void setSpring(int spring) {
-		this.spring = spring;
-	}
-
-	public void setSummer(int summer) {
-		this.summer = summer;
-	}
-
-	public void setAutumn(int autumn) {
-		this.autumn = autumn;
-	}
-
-	public void setWinter(int winter) {
-		this.winter = winter;
-	}
-	
-	public int getSunny() {
-		return sunny;
-	}
-
-	public int getCloudy() {
-		return cloudy;
-	}
-
-	public int getRain() {
-		return rain;
-	}
-
-	public int getSnow() {
-		return snow;
-	}
-
-	public void setSunny(int sunny) {
-		this.sunny = sunny;
-	}
-
-	public void setCloudy(int cloudy) {
-		this.cloudy = cloudy;
-	}
-
-	public void setRain(int rain) {
-		this.rain = rain;
-	}
-
-	public void setSnow(int snow) {
-		this.snow = snow;
+	/**
+	 * 
+	 * 保存ファイルを読み出して、リストを返す
+	 * 
+	 * @param context Activityあたりから取得できるコンテキスト
+	 * @return 読み出したSongSituationDBのリスト
+	 */
+	public static List<SongSituationDB> getSongSituationDBsByFile(Context context){
+		List<SongSituationDB> dbs = new ArrayList<SongSituationDB>();
+		String dbs_text = FileWriterUtility.readPublicFile(context, FILENAME);
+		if (dbs_text != null) {
+			String[] rows = dbs_text.split("\n\n");
+			for (int i = 0; i < rows.length; i++) {
+				SongSituationDB db = new SongSituationDB();
+				String[] columns = rows[i].split("\n");
+				for (int j = 0; j < columns.length; j++) {
+					String[] keyvalue = columns[j].split("="); 
+					String key = keyvalue[0];
+					String value;
+					try {
+						value = keyvalue[1];
+					} catch (ArrayIndexOutOfBoundsException e) {
+						value = "";
+					}
+					if (key.equals("id")) {
+						long db_id;
+						try {
+							db_id = Long.parseLong(value);
+						} catch (NumberFormatException e) {
+							db_id = 0;
+						}
+						db.setID(db_id);
+					}else if(key.equals("title")){
+						db.setTitle(value);
+					}else{
+						int value_int;
+						try {
+							value_int = Integer.parseInt(value);
+						} catch (NumberFormatException e) {
+							value_int = UNKNOWN_SPRING;
+						}
+						db.setInt(key, value_int);						
+					}
+				}
+				dbs.add(db);
+			}
+		}		
+		return dbs;
 	}
 	
-	public int getSea() {
-		return sea;
+	/**
+	 * 
+	 * リストをファイルに保存する
+	 * 
+	 * @param context Activityあたりから取得できるコンテキスト
+	 * @param dbs ファイルに書き込むリスト
+	 * @return 書き込んだSongSituationDBのリスト。失敗のときはnull
+	 */
+	public static List<SongSituationDB> saveSongSituationDBsByFile(Context context, List<SongSituationDB> dbs){
+		String dbs_text = "";
+		for (int i = 0; i < dbs.size(); i++) {
+			SongSituationDB db = dbs.get(i);
+			dbs_text += "id=" + db.getID() + "\n";
+			dbs_text += "title=" + db.getTitle() + "\n";
+			dbs_text += db.SPRING + "=" + db.getInt(db.SPRING) + "\n";
+			dbs_text += db.SUMMER + "=" + db.getInt(db.SUMMER) + "\n";
+			dbs_text += db.AUTUMN + "=" + db.getInt(db.AUTUMN) + "\n";
+			dbs_text += db.WINTER + "=" + db.getInt(db.WINTER) + "\n";
+			dbs_text += db.MORNING + "=" + db.getInt(db.MORNING) + "\n";
+			dbs_text += db.EVENING + "=" + db.getInt(db.EVENING) + "\n";
+			dbs_text += db.DAYTIME + "=" + db.getInt(db.DAYTIME) + "\n";
+			dbs_text += db.NIGHT + "=" + db.getInt(db.NIGHT) + "\n";
+			dbs_text += db.SUNNY + "=" + db.getInt(db.SUNNY) + "\n";
+			dbs_text += db.CLOUDY + "=" + db.getInt(db.CLOUDY) + "\n";
+			dbs_text += db.RAIN + "=" + db.getInt(db.RAIN) + "\n";
+			dbs_text += db.SNOW + "=" + db.getInt(db.SNOW) + "\n";
+			dbs_text += db.SEA + "=" + db.getInt(db.SEA) + "\n";
+			dbs_text += db.MORNING + "=" + db.getInt(db.MORNING) + "\n";
+			dbs_text += db.FOREST + "=" + db.getInt(db.FOREST) + "\n";
+			dbs_text += db.CITY + "=" + db.getInt(db.CITY) + "\n";
+			dbs_text += db.BPM + "=" + db.getInt(db.BPM) + "\n";
+			dbs_text += "\n";
+		}
+		dbs_text = dbs_text.substring(0, dbs_text.length() - 2);
+		String result = FileWriterUtility.writePublicFile(context, FILENAME, dbs_text);
+		if (result == null) {
+			dbs = null;
+		}
+		return dbs;
 	}
 
-	public int getMountain() {
-		return mountain;
+	/**
+	 * 
+	 * アセットファイルを読み出して、リストを返す<br>
+	 * durationidの項目をIDとして設定する<br>
+	 * 
+	 * @param context Activityあたりから取得できるコンテキスト
+	 * @return 読み出したSongSituationDBのリスト
+	 */
+	public static List<SongSituationDB> getSongSituationDBsByAsset(Context context){
+		List<SongSituationDB> dbs = new ArrayList<SongSituationDB>();
+		String dbs_text = FileWriterUtility.readAssetsFile(context, "SongSituationDB2.txt");
+		if (dbs_text != null) {
+			String[] rows = dbs_text.split("\n\n");
+			for (int i = 0; i < rows.length; i++) {
+				SongSituationDB db = new SongSituationDB();
+				String[] columns = rows[i].split("\n");
+				for (int j = 0; j < columns.length; j++) {
+					String[] keyvalue = columns[j].split("="); 
+					String key = keyvalue[0];
+					String value;
+					try{
+						value = keyvalue[1];
+					}catch(ArrayIndexOutOfBoundsException e){
+						value = "";
+					}
+					if (key.equals("durationid")) {
+						long db_id;
+						try {
+							db_id = Long.parseLong(value);
+						} catch (NumberFormatException e) {
+							db_id = 0;
+						}
+						db.setID(db_id);
+					}else if(key.equals("title")){
+						db.setTitle(value);
+					}else{
+						int value_int;
+						try{
+							value_int = Integer.parseInt(value);
+						}catch(NumberFormatException e){
+							value_int = UNKNOWN_SPRING;
+						}
+						db.setInt(key, value_int);				
+					}
+				}
+				dbs.add(db);
+			}
+		}
+		return dbs;
 	}
-
-	public int getForest() {
-		return forest;
-	}
-
-	public int getCity() {
-		return city;
-	}
-
-	public void setSea(int sea) {
-		this.sea = sea;
-	}
-
-	public void setMountain(int mountain) {
-		this.mountain = mountain;
-	}
-
-	public void setForest(int forest) {
-		this.forest = forest;
-	}
-
-	public void setCity(int city) {
-		this.city = city;
-	}
-	
-	public int getBPM(){
-		return bpm;
-	}
-	
-	public void setBPM(int bpm){
-		this.bpm = bpm;
-	}
-	
-	
 }

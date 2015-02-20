@@ -5,8 +5,12 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.util.Log;
 
 /**
@@ -18,7 +22,7 @@ import android.util.Log;
  *
  */
 public class FileWriterUtility {
-	
+		
 	/**
 	 * 
 	 * 誰でもアクセスできるファイルを読み出します<br>
@@ -123,6 +127,33 @@ public class FileWriterUtility {
 		}catch(Exception exception){
 			text = null;
 			Log.e("", exception.toString() + "on writing");
+		}
+		return text;
+	}
+	
+	/**
+	 * 
+	 * assetsフォルダにあるファイルを読み出します<br>
+	 * 
+	 * @param context Activityあたりから取得できるコンテキスト
+	 * @param filename ファイル名
+	 * @return 読み出した内容。失敗のときはnull
+	 */
+	public static String readAssetsFile(Context context, String filename){
+		String text;
+		try {
+			AssetManager assets = context.getResources().getAssets();
+			InputStream input = assets.open(filename);
+			BufferedInputStream reader = new BufferedInputStream(input);
+			text = "";
+			byte[] temp = new byte[reader.available()];
+			while(reader.read(temp) != -1){
+				text += new String(temp, "UTF-8");
+			}
+			reader.close();
+		} catch (IOException e) {
+			text = null;
+			e.printStackTrace();
 		}
 		return text;
 	}
