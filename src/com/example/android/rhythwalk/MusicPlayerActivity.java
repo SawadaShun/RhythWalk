@@ -6,8 +6,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-
-
 import android.app.Activity;
 import android.content.Intent;
 import android.hardware.SensorManager;
@@ -19,12 +17,10 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 /**
  * MediaPlayer を直接使用する音楽プレイヤー。
@@ -45,8 +41,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 	private Handler mHandler = new Handler();
 	private List<Item> mItems;
 	private int mIndex;
-	private ViewFlipper viewFlipper;
-	
+
 	WalkCounterMaster ad;
 	Timer mTimer;
 	static long nowBPM;
@@ -74,10 +69,70 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		mButtonStop.setOnClickListener(this);
 		mButtonConfig.setOnClickListener(this);
 		
-		viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper1);
-		
 		setEnabledButton(false);
+//		
+//		// センサーマネージャからサービスを取得
+//				SensorManager manager = (SensorManager) getSystemService(SENSOR_SERVICE);
+//
+//				// 加速度センサーアダプタを生成
+//				ad = new WalkCounterMaster(manager);
+//
+//				// タイマーを生成
+//				mTimer = new Timer(true);
+//								
+//				// 周期的に処理
+//				mTimer.schedule(new TimerTask() {
+//					@Override
+//					public void run() {
+//						// mHandlerを通じてUI Threadへ処理をキューイング
+//						mHandler.post(new Runnable() {
+//							public void run() {
+//								
+//								boolean isPlaying = mMediaPlayer.isPlaying();
+//						
+//								if (ConfigActivity.bpmSwitch) {
+//
+//									// 歩くBPMの計算式
+//									nowBPM = 60000 * (ad.getCounter() - startCounter) / 5000;
+//
+//									// BPMの表示
+//									
+//									bpmTxt.setText("" + nowBPM);
+//
+//								/**	 ここに歩くBPMと一致したBPMの音楽の再生する処理　*/
+//
+//									mIndex = 0; //再開時ソートの頭から表示
+//									mItems = Item.getItems(getApplicationContext());
+//									
+//									onClick(mButtonStop);
+//									if (isPlaying) {
+//										onClick(mButtonPlayPause);
+//									}
+//									
+//								}else{
+//									bpmTxt.setText(" - ");
+//								}
+//							
+//								// 計測初めの歩数の書き換え
+//								startCounter = ad.getCounter();
+//							}
+//						});
+//					}
+//				}, 0, 5000); // 0msから 5000ms(5s)間隔で繰り返す
+//
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.d(TAG, "onResume");
 		
+		mIndex = 0; //再開時ソートの頭から表示
+		mItems = Item.getItems(getApplicationContext());
+		
+		final TextView bpmTxt = (TextView) findViewById(R.id.BPMText);
+		
+
 		// センサーマネージャからサービスを取得
 				SensorManager manager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -95,13 +150,12 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 						mHandler.post(new Runnable() {
 							public void run() {
 								
-												
+								boolean isPlaying = mMediaPlayer.isPlaying();
+						
 								if (ConfigActivity.bpmSwitch) {
 
-									boolean isPlaying = mMediaPlayer.isPlaying();
-									
 									// 歩くBPMの計算式
-									nowBPM = 6 * (ad.getCounter() - startCounter);
+									nowBPM = 60000 * (ad.getCounter() - startCounter) / 5000;
 
 									// BPMの表示
 									
@@ -126,16 +180,9 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 							}
 						});
 					}
-				}, 0, 10000); // 0msから 10000ms(10s)間隔で繰り返す
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		Log.d(TAG, "onResume");
+				}, 0, 5000); // 0msから 5000ms(5s)間隔で繰り返す
 		
-		mIndex = 0; //再開時ソートの頭から表示
-		mItems = Item.getItems(getApplicationContext());
+		
 		
 		
 		if (mItems.size() != 0) {
@@ -157,6 +204,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 			mMediaPlayer = null;
 			mChronometer.stop();
 		}
+		mTimer.cancel();
 	}
 
 	@Override
@@ -187,11 +235,6 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 			if (isPlaying) {
 				onClick(mButtonPlayPause);
 			}
-			
-			viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
-			viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right));
-			viewFlipper.showNext();
-			
 		} else if (v == mButtonRewind) {
 			//mMediaPlayer.seekTo(0);
 			mChronometer.setBase(SystemClock.elapsedRealtime());
@@ -209,10 +252,6 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 				onClick(mButtonPlayPause);
 			}
 			
-			viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
-			viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right));
-			viewFlipper.showNext();
-			
 		} else if (v == mButtonStop) {
 			mMediaPlayer.stop();
 			mMediaPlayer.reset();
@@ -223,6 +262,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
 		
 			Intent i = new Intent(this, ConfigActivity.class);
 			startActivity(i);
+			//Toast.makeText(this, "Config", Toast.LENGTH_LONG).show();
 		}
 	}
 

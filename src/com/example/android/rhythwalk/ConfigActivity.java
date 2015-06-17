@@ -37,7 +37,7 @@ public class ConfigActivity extends Activity implements
 	static boolean weatherSwitch = false;
 	static boolean seasonSwitch = false;
 	static boolean placeSwitch = false;
-	static boolean bpmSwitch = false;
+	static boolean bpmSwitch = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -208,13 +208,7 @@ public class ConfigActivity extends Activity implements
 			if (bpmSwitch) {
 				bpmSwitch = false;
 			} else {
-				
 				bpmSwitch = true;
-				timeSwitch = false;
-				weatherSwitch = false;
-				seasonSwitch = false;
-				placeSwitch = false;
-				
 			}
 			break;
 		}

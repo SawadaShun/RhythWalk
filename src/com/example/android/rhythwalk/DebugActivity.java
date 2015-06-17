@@ -42,11 +42,13 @@ public class DebugActivity extends Activity implements OnClickListener {
 				// 選択されたアイテムを取得します
 				String item = (String) spinner.getSelectedItem();
 
+				// Toast.makeText(ConfigActivity.this, "debug:" + item,
+				// Toast.LENGTH_LONG).show();
+
 				ConfigActivity.timeSwitch = true;
 				ConfigActivity.weatherSwitch = false;
 				ConfigActivity.seasonSwitch = false;
 				ConfigActivity.placeSwitch = false;
-				ConfigActivity.bpmSwitch = false;
 				
 				if (item.equals("Night")) {
 					// MainActivity.cs.setSituationState(1);
@@ -108,7 +110,6 @@ public class DebugActivity extends Activity implements OnClickListener {
 				ConfigActivity.weatherSwitch = false;
 				ConfigActivity.seasonSwitch = true;
 				ConfigActivity.placeSwitch = false;
-				ConfigActivity.bpmSwitch = false;
 				
 				if (item2.equals("Spring")) {
 					//MainActivity.cs.setSituationState(4);
@@ -157,7 +158,6 @@ public class DebugActivity extends Activity implements OnClickListener {
 				ConfigActivity.weatherSwitch = true;
 				ConfigActivity.seasonSwitch = false;
 				ConfigActivity.placeSwitch = false;
-				ConfigActivity.bpmSwitch = false;
 				
 				if (item3.equals("Sunny")) {
 					//MainActivity.cs.setSituationState(8);
@@ -206,7 +206,6 @@ public class DebugActivity extends Activity implements OnClickListener {
 				ConfigActivity.weatherSwitch = false;
 				ConfigActivity.seasonSwitch = false;
 				ConfigActivity.placeSwitch = true;
-				ConfigActivity.bpmSwitch = false;
 				
 				if (item4.equals("Sea")) {
 //					MainActivity.cs.setSituationState(12);
